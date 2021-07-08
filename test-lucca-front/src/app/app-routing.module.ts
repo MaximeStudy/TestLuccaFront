@@ -5,9 +5,10 @@ import { LogoutComponent } from './authentification/logout/logout.component';
 import { SignUpComponent } from './authentification/sign-up/sign-up.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent},
-  { path: 'logout', component: LogoutComponent},
-  { path: 'signup', component: SignUpComponent}
+  { path: '', redirectTo: '/authentification/login', pathMatch: 'full' },
+  { path: 'authentification/login', component: LoginComponent},
+  { path: 'authentification/logout', component: LogoutComponent},
+  { path: 'authentification/signup', component: SignUpComponent}
 ];
 
 @NgModule({
