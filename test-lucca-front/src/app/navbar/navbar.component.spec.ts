@@ -53,4 +53,11 @@ describe('NavbarComponent', () => {
 
     expect(component).toBeTruthy();
   });
+
+  it('should contains Logout', () => {
+    var a = fixture.nativeElement.querySelector('#logout');
+    expect(a.textContent).toEqual('Log out');
+
+    expect(component).toBeTruthy();
+  });
 });

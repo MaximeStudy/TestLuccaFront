@@ -2,18 +2,21 @@
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
         <li class="nav-item">
-            <a href="#" id="home" class="nav-link link-dark px-2 active" aria-current="page">Home</a>
+            <a id="home" class="nav-link link-dark px-2 active">Home</a>
         </li>
         <li class="nav-item">
-            <a href="#" id="chat" class="nav-link link-dark px-2">Chat</a>
+            <a id="chat" class="nav-link link-dark px-2">Chat</a>
         </li>
       </ul>
       <ul class="nav">
         <li class="nav-item">
-            <a href="#" id="login" class="nav-link link-dark px-2">Login</a>
+            <a [routerLink]='["login"]' id="login" class="nav-link link-dark px-2">Login</a>
         </li>
         <li class="nav-item">
-            <a href="#" id="sign-up" class="nav-link link-dark px-2">Sign up</a>
+            <a [routerLink]='["signup"]' id="sign-up" class="nav-link link-dark px-2">Sign up</a>
+        </li>
+        <li class="nav-item">
+            <a [routerLink]='["logout"]' id="logout" class="nav-link link-dark px-2">Logout</a>
         </li>
       </ul>
     </div>
