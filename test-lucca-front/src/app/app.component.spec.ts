@@ -1,8 +1,13 @@
 import { TestBed } from '@angular/core/testing';
+import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+
+  let titleSpy: any;
+  let service: AppComponent;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -10,6 +15,9 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent
+      ],
+      providers: [
+        Title
       ],
     }).compileComponents();
   });
@@ -20,16 +28,20 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'test-lucca-front'`, () => {
+  it(`should have as title 'Chat application'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('test-lucca-front');
+    expect(app.title).toEqual('Chat application');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('test-lucca-front app is running!');
+  it('should change title', () => {
+    titleSpy =
+      jasmine.createSpyObj('Title', ['setTitle']);
+
+      titleSpy.setTitle.and.returnValue('hello');
+
+      service = new AppComponent(titleSpy);
+      service.ngOnInit();
+      expect(titleSpy.setTitle).toHaveBeenCalled();
   });
 });
