@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AuthService } from '../authentification/services/auth.service';
 
 @Component({
@@ -15,10 +14,15 @@ export class NavbarComponent implements OnInit {
   constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
-    this.isAuthenticated = this.authService.isAuthenticated();
-    this.authService.getUser().subscribe(
-      user => {
-        this.username = user.userName
+    this.authService.isAuthenticated().subscribe(
+      isAuthenticated => {
+        this.isAuthenticated = isAuthenticated;
+      }
+    );
+
+    this.authService.getUsername().subscribe(
+      username => {
+        this.username = username as string
       });
   }
 

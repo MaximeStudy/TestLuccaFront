@@ -1,41 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { IUser } from '../shared/user';
-import { tap, delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  isLoggedIn = false;
-  currentUser!:IUser;
-  
   constructor() { }
 
-  signUpUser(userName:string, password:string, confirmedPassword:string) {
-    this.isLoggedIn = true;
-    this.currentUser = {
-      userName:userName
-    }
-  }
+  connected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  username: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
-  isAuthenticated() : boolean {
-    return this.isLoggedIn;
+  isAuthenticated() : Observable<boolean> {
+    return this.connected.asObservable();
   }
 
   logoutUser() {
-    this.isLoggedIn = false;
+    this.connected.next(false);
+    this.username.next("");
   }
 
-  getUser() : Observable<IUser>{
-    return of(this.currentUser);
+  getUsername() : Observable<string> {
+    return this.username.asObservable();
   }
 
+  signUpUser(userName:string, password:string, confirmedPassword:string) {
+    this.loginUser(userName, password);
+  }
+  
   loginUser(userName:string, password:string) {
-    this.isLoggedIn = true;
-    this.currentUser = {
-      userName:userName
-    }
+    this.username.next(userName);
+    this.connected.next(true);
   }
 }
