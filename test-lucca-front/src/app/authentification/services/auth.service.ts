@@ -26,4 +26,10 @@ export class AuthService {
   getUser() : IUser{
     return this.currentUser;
   }
+
+  loginUser(userName:string, password:string) {
+    this.currentUser = {
+      userName:userName
+    }
+  }
 }

@@ -1,10 +1,8 @@
 <nav class="py-2 bg-light border-bottom">
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
-        <li class="nav-item">
-            <a id="home" class="nav-link link-dark px-2 active">Home</a>
-        </li>
-        <li class="nav-item">
+        
+        <li *ngIf='this.authService.isAuthenticated()' class="nav-item">
             <a id="chat" class="nav-link link-dark px-2">Chat</a>
         </li>
       </ul>

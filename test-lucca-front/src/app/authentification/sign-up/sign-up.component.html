@@ -3,7 +3,7 @@
         <h1>Register</h1>
         <div class="row">
             <div class="col-md-4">
-                <form id="registerForm" #loginFrom="ngForm" (ngSubmit)="login(loginFrom.value)">
+                <form id="registerForm" #registerForm="ngForm" (ngSubmit)="signUp(registerForm.value)">
                     <h4>Create a new account.</h4>
                     <hr>
                     <div class="form-group">

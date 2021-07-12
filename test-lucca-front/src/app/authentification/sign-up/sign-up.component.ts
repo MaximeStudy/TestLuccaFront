@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -13,14 +14,15 @@ export class SignUpComponent implements OnInit {
   password!:any;
   confirmPassword!:any;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,  private router: Router) { }
 
   ngOnInit(): void {
    
   }
 
-  login(formValues:any) {
+  signUp(formValues:any) {
     this.authService.signUpUser(formValues.userName, formValues.password, formValues.confirmPassword);
+    this.router.navigate(['/chat']);
   }
 
 }

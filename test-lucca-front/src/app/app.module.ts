@@ -9,6 +9,7 @@ import { LogoutComponent } from './authentification/logout/logout.component';
 import { SignUpComponent } from './authentification/sign-up/sign-up.component';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './authentification/services/auth.service';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AuthService } from './authentification/services/auth.service';
     NavbarComponent,
     LoginComponent,
     LogoutComponent,
-    SignUpComponent
+    SignUpComponent,
+    ChatComponent
     ],
   imports: [
     BrowserModule,
