@@ -22,4 +22,8 @@ export class AuthService {
   logoutUser() {
     this.currentUser=null as any; 
   }
+
+  getUser() : IUser{
+    return this.currentUser;
+  }
 }
