@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { ChatMessage } from '../shared/chat-message';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class ChatMessageService {
     this.messages.push(message);
   }
 
-  getMessages(): ChatMessage[] {
-    return this.messages;
+  getMessages(): Observable<ChatMessage[]> {
+    return of(this.messages);
   }
 }

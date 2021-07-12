@@ -27,7 +27,8 @@ export class ChatMessagesComponent implements  OnInit, AfterViewChecked {
   }
 
   getMessages(): void {
-    this.messages = this.chatMessageService.getMessages();
+    this.chatMessageService.getMessages()
+    .subscribe(messages => this.messages = messages);
   }
 
   scrollToBottom(): void {
