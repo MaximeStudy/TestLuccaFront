@@ -11,11 +11,15 @@ export class AuthService {
 
   signUpUser(userName:string, password:string, confirmedPassword:string) {
     this.currentUser = {
-      userName:"Maxime"
+      userName:userName
     }
   }
 
   isAuthenticated() {
     return !!this.currentUser; //cast to boolean
+  }
+
+  logoutUser() {
+    this.currentUser=null as any; 
   }
 }

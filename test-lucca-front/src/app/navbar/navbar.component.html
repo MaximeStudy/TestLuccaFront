@@ -8,19 +8,22 @@
             <a id="chat" class="nav-link link-dark px-2">Chat</a>
         </li>
       </ul>
-      <ul class="nav">
-        <li class="nav-item">
+        <ul class="nav" *ngIf='!this.authService.isAuthenticated()'>
+          <li class="nav-item">
             <a [routerLink]='["/authentification/login"]' id="login" class="nav-link link-dark px-2">Login</a>
-        </li>
-        <li class="nav-item">
-            <a [routerLink]='["/authentification/signup"]' id="sign-up" class="nav-link link-dark px-2">Sign up</a>
-        </li>
-        <li class="nav-item">
-            <a [routerLink]='["/authentification/logout"]' id="logout" class="nav-link link-dark px-2">Logout</a>
-        </li>
-        <li *ngIf='this.authService.isAuthenticated()'>
-          <a [routerLink]='["/authentification/test"]' id="test" class="nav-link link-dark px-2">test</a>
-        </li>
-      </ul>
+          </li>
+          <li class="nav-item">
+              <a [routerLink]='["/authentification/signup"]' id="sign-up" class="nav-link link-dark px-2">Sign up</a>
+          </li>
+        </ul>
+          
+          <ul class="nav" *ngIf='this.authService.isAuthenticated()'>
+            <li class="nav-item">
+              <a [routerLink]='["/authentification/test"]' id="test" class="nav-link link-dark px-2">Hello test</a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]='["/authentification/logout"]' id="logout" class="nav-link link-dark px-2">Logout</a>
+            </li>
+          </ul>
     </div>
   </nav>
