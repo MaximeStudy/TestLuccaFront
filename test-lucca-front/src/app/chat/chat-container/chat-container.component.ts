@@ -12,14 +12,19 @@ export class ChatContainerComponent implements OnInit {
 
   currentChatMessage: ChatMessage = { content: '', sender: '' };
 
-
+  username!:string;
+  
   constructor(private chatMessageService: ChatMessageService, public authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.getUser().subscribe(
+      user => {
+        this.username = user.userName
+      });
   }
 
   sendMessage(): void {
     this.chatMessageService.add(this.currentChatMessage);
-    this.currentChatMessage = { content: '', sender: this.authService.getUser().userName };
+    this.currentChatMessage = { content: '', sender: this.username };
   }
 }
