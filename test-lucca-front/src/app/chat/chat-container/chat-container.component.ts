@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/authentification/services/auth.service';
 
 @Component({
   selector: 'app-chat-container',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatContainerComponent implements OnInit {
 
-  constructor() { }
+  public username!: string;
+
+
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
+    this.getUsername();
   }
 
+  getUsername(): void {
+    this.username = this.authService.getUser().userName;
+  }
 }

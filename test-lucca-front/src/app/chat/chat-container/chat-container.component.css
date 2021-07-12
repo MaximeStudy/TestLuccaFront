@@ -1,0 +1,24 @@
+.container {
+    height: 600px;
+  }
+  
+  .card {
+    width: 300px;
+    border: none;
+    border-radius: 15px;
+    background: #f0f0f05c;
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  .card-header {
+    background: #0d6efd;
+    border-radius: 15px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    font-size: 12px;
+    height: 46px
+  }
+  
