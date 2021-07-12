@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from '../authentification/services/auth.service';
 
 @Component({
@@ -8,9 +9,11 @@ import { AuthService } from '../authentification/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
+  isAuthenticated!:boolean;
   constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
+    this.isAuthenticated = this.authService.isAuthenticated();
   }
 
 }

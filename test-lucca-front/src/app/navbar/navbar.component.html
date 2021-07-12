@@ -2,11 +2,11 @@
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
         
-        <li *ngIf='this.authService.isAuthenticated()' class="nav-item">
-            <a id="chat" class="nav-link link-dark px-2">Chat</a>
+        <li *ngIf="(this.authService.isAuthenticated())" class="nav-item">
+            <a id="chat" [routerLink]='["/chat"]' class="nav-link link-dark px-2">Chat</a>
         </li>
       </ul>
-        <ul class="nav" *ngIf='!this.authService.isAuthenticated()'>
+        <ul class="nav" *ngIf="!(this.authService.isAuthenticated())">
           <li class="nav-item">
             <a [routerLink]='["/authentification/login"]' id="login" class="nav-link link-dark px-2">Login</a>
           </li>
@@ -15,7 +15,7 @@
           </li>
         </ul>
           
-          <ul class="nav" *ngIf='this.authService.isAuthenticated()'>
+          <ul class="nav" *ngIf="(this.authService.isAuthenticated())">
             <li class="nav-item">
               <a id="userName" class="nav-link link-dark px-2">Hello {{this.authService.getUser().userName}}</a>
             </li>

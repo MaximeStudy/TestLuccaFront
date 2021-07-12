@@ -1,26 +1,30 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { IUser } from '../shared/user';
+import { tap, delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  isLoggedIn = false;
   currentUser!:IUser;
   constructor() { }
 
   signUpUser(userName:string, password:string, confirmedPassword:string) {
+    this.isLoggedIn = true;
     this.currentUser = {
       userName:userName
     }
   }
 
-  isAuthenticated() {
-    return !!this.currentUser; //cast to boolean
+  isAuthenticated() : boolean {
+    return this.isLoggedIn;
   }
 
   logoutUser() {
-    this.currentUser=null as any; 
+    this.isLoggedIn = false;
   }
 
   getUser() : IUser{
@@ -28,6 +32,7 @@ export class AuthService {
   }
 
   loginUser(userName:string, password:string) {
+    this.isLoggedIn = true;
     this.currentUser = {
       userName:userName
     }
