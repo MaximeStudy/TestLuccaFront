@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './authentification/services/auth.service';
 import { ChatContainerComponent } from './chat/chat-container/chat-container.component';
 import { ChatMessagesComponent } from './chat/chat-messages/chat-messages.component';
+import { ChatMessageService } from './chat/services/chat-message.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ChatMessagesComponent } from './chat/chat-messages/chat-messages.compon
   ],
   providers: [
     Title,
-    AuthService
+    AuthService,
+    ChatMessageService
   ],
   bootstrap: [AppComponent]
 })
