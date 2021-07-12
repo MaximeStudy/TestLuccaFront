@@ -11,4 +11,8 @@ export class ChatMessageService {
   add(message: ChatMessage) {
     this.messages.push(message);
   }
+
+  getMessages(): ChatMessage[] {
+    return this.messages;
+  }
 }

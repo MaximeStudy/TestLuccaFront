@@ -11,21 +11,15 @@ import { ChatMessage } from '../shared/chat-message';
 export class ChatContainerComponent implements OnInit {
 
   currentChatMessage: ChatMessage = { content: '', sender: '' };
-  public username!: string;
 
 
-  constructor(private chatMessageService: ChatMessageService, private authService: AuthService) { }
+  constructor(private chatMessageService: ChatMessageService, public authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getUsername();
-  }
-
-  getUsername(): void {
-    this.username = this.authService.getUser().userName;
   }
 
   sendMessage(): void {
     this.chatMessageService.add(this.currentChatMessage);
-    this.currentChatMessage = { content: '', sender: this.username };
+    this.currentChatMessage = { content: '', sender: this.authService.getUser().userName };
   }
 }

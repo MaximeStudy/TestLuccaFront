@@ -1,13 +1,12 @@
 <div class="container d-flex justify-content-center">
-
     <div class="card mt-5">
       <div class="d-flex flex-row justify-content-between p-3 card-header text-white">
         <i class="fas fa-chevron-left"></i>
         <span class="pb-3">Lucca Chat</span>
         <i class="fas fa-times"></i>
       </div>
-      <div *ngIf="username">
-        <app-chat-messages>
+      <div *ngIf="this.authService.getUser()">
+        <app-chat-messages [currentUsername]="this.authService.getUser().userName">
         </app-chat-messages>
       </div>
   
