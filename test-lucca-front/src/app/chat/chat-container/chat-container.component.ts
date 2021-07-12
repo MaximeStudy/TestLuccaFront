@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/authentification/services/auth.service';
-import { ChatMessageService } from '../services/chat-message.service';
+import { ChatMessageFirebaseService } from '../services/chat-message-firebase.service';
 import { ChatMessage } from '../shared/chat-message';
 
 @Component({
@@ -14,7 +14,7 @@ export class ChatContainerComponent implements OnInit {
 
   username!:any;
 
-  constructor(private chatMessageService: ChatMessageService, public authService: AuthService) { }
+  constructor(private chatMessageService: ChatMessageFirebaseService, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.getUsername().subscribe(

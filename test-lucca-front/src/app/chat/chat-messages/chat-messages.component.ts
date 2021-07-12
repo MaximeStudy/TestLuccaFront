@@ -1,5 +1,5 @@
 import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ChatMessageService } from '../services/chat-message.service';
+import { ChatMessageFirebaseService } from '../services/chat-message-firebase.service';
 import { ChatMessage } from '../shared/chat-message';
 
 @Component({
@@ -15,7 +15,7 @@ export class ChatMessagesComponent implements  OnInit, AfterViewChecked {
 
   messages: ChatMessage[] = [];
   private messageLength = 0;
-  constructor(private chatMessageService: ChatMessageService) { }
+  constructor(private chatMessageService: ChatMessageFirebaseService) { }
 
   ngAfterViewChecked(): void {
     this.scrollToBottom();

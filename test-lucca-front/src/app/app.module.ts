@@ -13,6 +13,21 @@ import { ChatContainerComponent } from './chat/chat-container/chat-container.com
 import { ChatMessagesComponent } from './chat/chat-messages/chat-messages.component';
 import { ChatMessageService } from './chat/services/chat-message.service';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { ChatMessageFirebaseService } from './chat/services/chat-message-firebase.service';
+
+var firebaseConfig = {
+  apiKey: "AIzaSyA0bWptZKWm7jLTOjQEcv8qo51eUVyJBWY",
+  authDomain: "test-front-lucca-f9dbe.firebaseapp.com",
+  databaseURL: "https://test-front-lucca-f9dbe-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "test-front-lucca-f9dbe",
+  storageBucket: "test-front-lucca-f9dbe.appspot.com",
+  messagingSenderId: "77990782566",
+  appId: "1:77990782566:web:e419cb014f74f233a42fa7",
+  measurementId: "G-Y0659P8PSX"
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,12 +41,15 @@ import { ChatMessageService } from './chat/services/chat-message.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireStorageModule
   ],
   providers: [
     Title,
     AuthService,
-    ChatMessageService
+    ChatMessageService,
+    ChatMessageFirebaseService
   ],
   bootstrap: [AppComponent]
 })
