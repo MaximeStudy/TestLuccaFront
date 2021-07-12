@@ -5,8 +5,8 @@
         <span class="pb-3">Lucca Chat</span>
         <i class="fas fa-times"></i>
       </div>
-      <div *ngIf="this.authService.getUser()">
-        <app-chat-messages [currentUsername]="this.authService.getUser().userName">
+      <div *ngIf="this.username">
+        <app-chat-messages [currentUsername]="this.username">
         </app-chat-messages>
       </div>
   

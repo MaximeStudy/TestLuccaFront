@@ -10,6 +10,7 @@ export class AuthService {
 
   isLoggedIn = false;
   currentUser!:IUser;
+  
   constructor() { }
 
   signUpUser(userName:string, password:string, confirmedPassword:string) {
@@ -27,8 +28,8 @@ export class AuthService {
     this.isLoggedIn = false;
   }
 
-  getUser() : IUser{
-    return this.currentUser;
+  getUser() : Observable<IUser>{
+    return of(this.currentUser);
   }
 
   loginUser(userName:string, password:string) {
