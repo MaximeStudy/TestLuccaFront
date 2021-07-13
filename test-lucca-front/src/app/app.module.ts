@@ -7,7 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './authentification/login/login.component';
 import { LogoutComponent } from './authentification/logout/logout.component';
 import { SignUpComponent } from './authentification/sign-up/sign-up.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './authentification/services/auth.service';
 import { ChatContainerComponent } from './chat/chat-container/chat-container.component';
 import { ChatMessagesComponent } from './chat/chat-messages/chat-messages.component';
@@ -43,7 +43,8 @@ var firebaseConfig = {
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    ReactiveFormsModule
   ],
   providers: [
     Title,

@@ -3,21 +3,21 @@
         <h1>Register</h1>
         <div class="row">
             <div class="col-md-4">
-                <form id="registerForm" #registerForm="ngForm" (ngSubmit)="signUp(registerForm.value)">
+                <form [formGroup]="signupForm" (ngSubmit)="signUp(signupForm.value)" autocomplete="off" novalidate> 
                     <h4>Create a new account.</h4>
                     <hr>
                     <div class="form-group">
                         <label>Email</label>
-                        <input (ngModel)="userName" name="userName" class="form-control"  type="email">
+                        <input formControlName="userName" name="userName" class="form-control"  type="email">
                         
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input (ngModel)="password" name="password" class="form-control" autocomplete="new-password" type="password" >
+                        <input formControlName="password" name="password" class="form-control" autocomplete="new-password" type="password" >
                     </div>
                     <div class="form-group">
                         <label>Confirm password</label>
-                        <input (ngModel)="confirmPassword" name="confirmPassword" class="form-control" autocomplete="new-password" type="password" >
+                        <input formControlName="confirmPassword" name="confirmPassword" class="form-control" autocomplete="new-password" type="password" >
                     </div>
                     <button id="registerSubmit" type="submit" class="btn btn-primary mt-2">Register</button>
                 </form>
