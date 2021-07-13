@@ -10,7 +10,7 @@
                         <label>Username</label>
                         <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.required">Required</em>
                         <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.minlength">Password must be at least 1 character</em>
-                        <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.maxlength">Password must not exceed 20 characters</em>
+                        <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.maxlength">Password must not exceed 10 characters</em>
                         <input formControlName="username" name="username" class="form-control"  type="text" placeholder="Username">
                         
                     </div>
@@ -27,7 +27,9 @@
                         <em *ngIf="!validateConfirmPassword() && signupForm.controls.confirmPassword.errors?.matching">Confirm Password does not match</em>
                         <input formControlName="confirmPassword" name="confirmPassword" class="form-control" autocomplete="new-password" type="password" placeholder="Confirm password">
                     </div>
-                    <button id="registerSubmit" type="submit" class="btn btn-primary mt-2">Register</button>
+                    <span (mouseenter)="mouseoverSignup=true" (mouseleave)="mouseoverSignup=false">
+                        <button [disabled]="signupForm.invalid"  id="signupSubmit" type="submit" class="btn btn-primary mt-2">Sign up</button>
+                    </span>
                 </form>
             </div>
         </div>

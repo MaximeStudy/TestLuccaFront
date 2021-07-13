@@ -14,6 +14,7 @@ export class SignUpComponent implements OnInit {
   private username!:FormControl;
   private password!:FormControl;
   private confirmPassword!:FormControl;
+  mouseoverSignup!:any;
 
   constructor(private authService: AuthService,  private router: Router) { }
 
@@ -39,15 +40,15 @@ export class SignUpComponent implements OnInit {
   }
 
   validatePassword()  : boolean {
-    return this.password.valid || this.password.untouched;
+    return this.password.valid || (this.password.untouched && !this.mouseoverSignup);
   }
 
   validateConfirmPassword() : boolean {
-    return this.confirmPassword.valid || this.confirmPassword.untouched;
+    return this.confirmPassword.valid || (this.confirmPassword.untouched  && !this.mouseoverSignup);
   }
 
   validateUsername() : boolean {
-    return this.username.valid || this.username.untouched;
+    return (this.username.valid)  || (this.username.untouched && !this.mouseoverSignup);
   }
 
   match(controlName: string, checkControlName: string): ValidatorFn {
