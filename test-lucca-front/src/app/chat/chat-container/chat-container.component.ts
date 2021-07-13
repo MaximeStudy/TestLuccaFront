@@ -12,8 +12,6 @@ import { ChatMessage } from '../shared/chat-message';
 export class ChatContainerComponent implements OnInit {
 
   username!:any;
-  currentMessage!:any;
-
   sendMessageForm!: FormGroup;
   private message!:FormControl;
 
@@ -24,7 +22,7 @@ export class ChatContainerComponent implements OnInit {
       username => {
         this.username = username;
       });
-      
+
     this.message = new FormControl(null, [Validators.required]);
     this.sendMessageForm = new FormGroup({
       message: this.message
