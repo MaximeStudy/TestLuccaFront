@@ -18,7 +18,7 @@ export class SignUpComponent implements OnInit {
   constructor(private authService: AuthService,  private router: Router) { }
 
   ngOnInit(): void {
-   this.userName = new FormControl(null,Validators.required);
+   this.userName = new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
    this.password = new FormControl(null, Validators.required);
    this.confirmPassword = new FormControl(null, Validators.required);
 

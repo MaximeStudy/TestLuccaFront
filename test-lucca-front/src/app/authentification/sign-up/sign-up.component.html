@@ -8,7 +8,8 @@
                     <hr>
                     <div class="form-group" [ngClass]="{'error': !validateUserName()}">
                         <label>Email</label>
-                        <em *ngIf="!validateUserName()">Required</em>
+                        <em *ngIf="!validateUserName() && signupForm.controls.userName.errors?.required">Required</em>
+                        <em *ngIf="!validateUserName() && signupForm.controls.userName.errors?.pattern">Must start with a</em>
                         <input formControlName="userName" name="userName" class="form-control"  type="email" placeholder="Email">
                         
                     </div>
