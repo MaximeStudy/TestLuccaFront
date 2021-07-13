@@ -13,7 +13,11 @@ export class IsConnectedGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    var isAuthenticated = this.authService.isAuthenticated();
+    var isAuthenticated = false;;
+    this.authService.isAuthenticated().subscribe(val => isAuthenticated = val);
+    if (!isAuthenticated) {
+      this.router.navigate(['/authentification/login']);
+    }
 
     return isAuthenticated;
   }
