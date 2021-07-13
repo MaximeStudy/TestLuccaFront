@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -10,14 +10,20 @@ import { AuthService } from '../services/auth.service';
 })
 export class SignUpComponent implements OnInit {
 
-  userName!:any;
-  password!:any;
-  confirmPassword!:any;
+  signupForm!: FormGroup;
 
   constructor(private authService: AuthService,  private router: Router) { }
 
   ngOnInit(): void {
-   
+   let userName = new FormControl();
+   let password = new FormControl();
+   let confirmPassword = new FormControl();
+
+   this.signupForm = new FormGroup({
+    userName:userName,
+    password: password,
+    confirmPassword: confirmPassword
+   });
   }
 
   signUp(formValues:any) {
