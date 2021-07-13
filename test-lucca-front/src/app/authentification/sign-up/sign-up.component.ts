@@ -11,19 +11,19 @@ import { AuthService } from '../services/auth.service';
 export class SignUpComponent implements OnInit {
 
   signupForm!: FormGroup;
-  private userName!:FormControl;
+  private username!:FormControl;
   private password!:FormControl;
   private confirmPassword!:FormControl;
 
   constructor(private authService: AuthService,  private router: Router) { }
 
   ngOnInit(): void {
-   this.userName = new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
-   this.password = new FormControl(null, Validators.required);
+   this.username = new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(10)]);
+   this.password = new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]);
    this.confirmPassword = new FormControl(null, [Validators.required]);
 
    this.signupForm = new FormGroup({
-    userName: this.userName,
+    username: this.username,
     password: this.password,
     confirmPassword: this.confirmPassword
    }, [this.match('password','confirmPassword')]
@@ -32,7 +32,7 @@ export class SignUpComponent implements OnInit {
 
   signUp(formValues:any) {
     if(this.signupForm.valid) {
-      this.authService.signUpUser(formValues.userName, formValues.password, formValues.confirmPassword);
+      this.authService.signUpUser(formValues.username, formValues.password, formValues.confirmPassword);
       this.router.navigate(['/chat']);
     }
     
@@ -46,8 +46,8 @@ export class SignUpComponent implements OnInit {
     return this.confirmPassword.valid || this.confirmPassword.untouched;
   }
 
-  validateUserName() : boolean {
-    return this.userName.valid || this.userName.untouched;
+  validateUsername() : boolean {
+    return this.username.valid || this.username.untouched;
   }
 
   match(controlName: string, checkControlName: string): ValidatorFn {

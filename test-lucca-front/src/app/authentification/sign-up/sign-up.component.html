@@ -6,16 +6,19 @@
                 <form [formGroup]="signupForm" (ngSubmit)="signUp(signupForm.value)" autocomplete="off" novalidate> 
                     <h4>Create a new account.</h4>
                     <hr>
-                    <div class="form-group" [ngClass]="{'error': !validateUserName()}">
-                        <label>Email</label>
-                        <em *ngIf="!validateUserName() && signupForm.controls.userName.errors?.required">Required</em>
-                        <em *ngIf="!validateUserName() && signupForm.controls.userName.errors?.pattern">Must start with a</em>
-                        <input formControlName="userName" name="userName" class="form-control"  type="email" placeholder="Email">
+                    <div class="form-group" [ngClass]="{'error': !validateUsername()}">
+                        <label>Username</label>
+                        <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.required">Required</em>
+                        <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.minlength">Password must be at least 1 character</em>
+                        <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.maxlength">Password must not exceed 20 characters</em>
+                        <input formControlName="username" name="username" class="form-control"  type="text" placeholder="Username">
                         
                     </div>
                     <div class="form-group" [ngClass]="{'error': !validatePassword()}">
                         <label>Password</label>
-                        <em *ngIf="!validatePassword()">Required</em>
+                        <em *ngIf="!validatePassword() && signupForm.controls.password.errors?.required">Required</em>
+                        <em *ngIf="!validatePassword() && signupForm.controls.password.errors?.minlength">Password must be at least 6 characters</em>
+                        <em *ngIf="!validatePassword() && signupForm.controls.password.errors?.maxlength">Password must not exceed 20 characters</em>
                         <input formControlName="password" name="password" class="form-control" autocomplete="new-password" type="password" placeholder="Password">
                     </div>
                     <div class="form-group" [ngClass]="{'error': !validateConfirmPassword()}">
