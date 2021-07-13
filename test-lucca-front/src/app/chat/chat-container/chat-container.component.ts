@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/authentification/services/auth.service';
 import { ChatMessageFirebaseService } from '../services/chat-message-firebase.service';
-import { ChatMessage } from '../shared/chat-message';
 
 @Component({
   selector: 'app-chat-container',
