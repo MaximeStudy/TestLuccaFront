@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -9,17 +10,38 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  userName!:any;
-  password!:any;
+  loginForm!: FormGroup;
+  private username!:FormControl;
+  private password!:FormControl;
+
   mouseoverLogin!:any;
+
   constructor(private authService: AuthService,  private router: Router) { }
 
   ngOnInit(): void {
+    this.username = new FormControl(null, [Validators.required]);
+    this.password = new FormControl(null, [Validators.required]);
+    this.loginForm = new FormGroup({
+      username: this.username,
+      password: this.password
+     });
   }
 
   login(formValues:any) {
-    this.authService.loginUser(formValues.userName, formValues.password);
-    this.router.navigate(['/chat']);
+    console.log(formValues);
+    if(this.loginForm.valid) {
+      this.authService.loginUser(formValues.username, formValues.password);
+      this.router.navigate(['/chat']);
+    }
+   
+  }
+
+  validatePassword()  : boolean {
+    return this.password.valid || (this.password.untouched && !this.mouseoverLogin);
+  }
+
+  validateUsername() : boolean {
+    return (this.username.valid)  || (this.username.untouched && !this.mouseoverLogin);
   }
 
 }
