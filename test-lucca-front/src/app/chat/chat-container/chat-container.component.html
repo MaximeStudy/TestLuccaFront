@@ -17,8 +17,8 @@
                 <textarea class="form-control" placeholder="Write a message!" formControlName="message"></textarea>
               </div>
               <div class="p-3">
-                <span (mouseenter)="mouseoverSend=true" (mouseleave)="mouseoverSend=false">
-                  <button class="btn btn-primary" type="submit" >Send</button>
+                <span>
+                  <button [disabled]="sendMessageForm.invalid" class="btn btn-primary" type="submit" >Send</button>
                 </span>
               </div>
             </div>
@@ -27,4 +27,3 @@
       </form>
     </div>
   </div>
-  

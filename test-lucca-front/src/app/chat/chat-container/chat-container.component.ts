@@ -12,7 +12,6 @@ import { ChatMessage } from '../shared/chat-message';
 export class ChatContainerComponent implements OnInit {
 
   username!:any;
-  mouseoverSend!:any;
   currentMessage!:any;
 
   sendMessageForm!: FormGroup;
@@ -21,11 +20,11 @@ export class ChatContainerComponent implements OnInit {
   constructor(private chatMessageService: ChatMessageFirebaseService, public authService: AuthService) { }
 
   ngOnInit(): void {
-    // this.authService.getUsername().subscribe(
-    //   username => {
-    //     this.username = username;
-    //   });
-    this.username ="hello";
+    this.authService.getUsername().subscribe(
+      username => {
+        this.username = username;
+      });
+      
     this.message = new FormControl(null, [Validators.required]);
     this.sendMessageForm = new FormGroup({
       message: this.message
