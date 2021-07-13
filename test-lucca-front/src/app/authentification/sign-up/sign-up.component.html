@@ -24,7 +24,7 @@
                     <div class="form-group" [ngClass]="{'error': !validateConfirmPassword()}">
                         <label>Confirm password</label>
                         <em *ngIf="!validateConfirmPassword() && signupForm.controls.confirmPassword.errors?.required">Required</em>
-                        <em *ngIf="!validateConfirmPassword() && signupForm.controls.confirmPassword.errors?.matching">Confirm Password does not match</em>
+                        <em *ngIf="!validateConfirmPassword() && signupForm.controls.confirmPassword.errors?.matching">Confirm password does not match</em>
                         <input formControlName="confirmPassword" name="confirmPassword" class="form-control" autocomplete="new-password" type="password" placeholder="Confirm password">
                     </div>
                     <span (mouseenter)="mouseoverSignup=true" (mouseleave)="mouseoverSignup=false">
