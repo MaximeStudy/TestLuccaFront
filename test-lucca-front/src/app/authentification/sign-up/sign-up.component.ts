@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -20,13 +20,14 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
    this.userName = new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
    this.password = new FormControl(null, Validators.required);
-   this.confirmPassword = new FormControl(null, Validators.required);
+   this.confirmPassword = new FormControl(null, [Validators.required]);
 
    this.signupForm = new FormGroup({
     userName: this.userName,
     password: this.password,
     confirmPassword: this.confirmPassword
-   });
+   }, [this.match('password','confirmPassword')]
+   );
   }
 
   signUp(formValues:any) {
@@ -47,5 +48,23 @@ export class SignUpComponent implements OnInit {
 
   validateUserName() : boolean {
     return this.userName.valid || this.userName.untouched;
+  }
+
+  match(controlName: string, checkControlName: string): ValidatorFn {
+    return (controls: AbstractControl) => {
+      const control = controls.get(controlName);
+      const checkControl = controls.get(checkControlName);
+
+      if (checkControl?.errors && !checkControl?.errors.matching) {
+        return null;
+      }
+
+      if (control?.value !== checkControl?.value) {
+        checkControl?.setErrors({ matching: true });
+        return { matching: true };
+      } else {
+        return null;
+      }
+    };
   }
 }
