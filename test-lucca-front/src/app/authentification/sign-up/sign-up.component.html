@@ -6,18 +6,21 @@
                 <form [formGroup]="signupForm" (ngSubmit)="signUp(signupForm.value)" autocomplete="off" novalidate> 
                     <h4>Create a new account.</h4>
                     <hr>
-                    <div class="form-group">
+                    <div class="form-group" [ngClass]="{'error': !validateUserName()}">
                         <label>Email</label>
-                        <input formControlName="userName" name="userName" class="form-control"  type="email">
+                        <em *ngIf="!validateUserName()">Required</em>
+                        <input formControlName="userName" name="userName" class="form-control"  type="email" placeholder="Email">
                         
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" [ngClass]="{'error': !validatePassword()}">
                         <label>Password</label>
-                        <input formControlName="password" name="password" class="form-control" autocomplete="new-password" type="password" >
+                        <em *ngIf="!validatePassword()">Required</em>
+                        <input formControlName="password" name="password" class="form-control" autocomplete="new-password" type="password" placeholder="Password">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" [ngClass]="{'error': !validateConfirmPassword()}">
                         <label>Confirm password</label>
-                        <input formControlName="confirmPassword" name="confirmPassword" class="form-control" autocomplete="new-password" type="password" >
+                        <em *ngIf="!validateConfirmPassword()">Required</em>
+                        <input formControlName="confirmPassword" name="confirmPassword" class="form-control" autocomplete="new-password" type="password" placeholder="Confirm password">
                     </div>
                     <button id="registerSubmit" type="submit" class="btn btn-primary mt-2">Register</button>
                 </form>

@@ -11,24 +11,41 @@ import { AuthService } from '../services/auth.service';
 export class SignUpComponent implements OnInit {
 
   signupForm!: FormGroup;
+  private userName!:FormControl;
+  private password!:FormControl;
+  private confirmPassword!:FormControl;
 
   constructor(private authService: AuthService,  private router: Router) { }
 
   ngOnInit(): void {
-   let userName = new FormControl();
-   let password = new FormControl();
-   let confirmPassword = new FormControl();
+   this.userName = new FormControl(null,Validators.required);
+   this.password = new FormControl(null, Validators.required);
+   this.confirmPassword = new FormControl(null, Validators.required);
 
    this.signupForm = new FormGroup({
-    userName:userName,
-    password: password,
-    confirmPassword: confirmPassword
+    userName: this.userName,
+    password: this.password,
+    confirmPassword: this.confirmPassword
    });
   }
 
   signUp(formValues:any) {
-    this.authService.signUpUser(formValues.userName, formValues.password, formValues.confirmPassword);
-    this.router.navigate(['/chat']);
+    if(this.signupForm.valid) {
+      this.authService.signUpUser(formValues.userName, formValues.password, formValues.confirmPassword);
+      this.router.navigate(['/chat']);
+    }
+    
   }
 
+  validatePassword()  : boolean {
+    return this.password.valid || this.password.untouched;
+  }
+
+  validateConfirmPassword() : boolean {
+    return this.confirmPassword.valid || this.confirmPassword.untouched;
+  }
+
+  validateUserName() : boolean {
+    return this.userName.valid || this.userName.untouched;
+  }
 }
