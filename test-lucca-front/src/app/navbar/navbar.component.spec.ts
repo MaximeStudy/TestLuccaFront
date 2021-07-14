@@ -50,8 +50,6 @@ describe('NavbarComponent', () => {
 
     var login = fixture.nativeElement.querySelector('#login');
     expect(login.textContent).toEqual('Login');
-
-    expect(component).toBeTruthy();
   });
 
   it('should contains Sign up when not connected', () => {
@@ -59,8 +57,6 @@ describe('NavbarComponent', () => {
 
     var signup = fixture.nativeElement.querySelector('#sign-up');
     expect(signup.textContent).toEqual('Sign up');
-
-    expect(component).toBeTruthy();
   });
 
   it('should not contains contains Logout when not connected', () => {
@@ -103,6 +99,29 @@ describe('NavbarComponent', () => {
     var helloUser = fixture.nativeElement.querySelector('#hello');
     
     expect(helloUser.textContent).toEqual('Hello Maxime');
+  });
+
+  it('should contains Logout when connected', () => {
+    initializerWithAuthenticatedUser();
+
+    var logout = fixture.nativeElement.querySelector('#logout');
+
+    expect(logout.textContent).toEqual('Logout');
+  });
+
+
+  it('should not contains Login when connected', () => {
+    initializerWithAuthenticatedUser();
+
+    var login = fixture.nativeElement.querySelector('#login');
+    expect(login).toBeNull();
+  });
+
+  it('should not contains Sign up when connected', () => {
+    initializerWithAuthenticatedUser();
+
+    var signup = fixture.nativeElement.querySelector('#sign-up');
+    expect(signup).toBeNull();
   });
 
 
