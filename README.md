@@ -29,7 +29,7 @@ Si le projet est concluant, on vous rappelle pour discuter de vos choix techniqu
 # Implémentation
 
 Pour réaliser le projet, j'ai utilisé Angular v12 pour le client front, et Fire Database pour gérer les messages en temps réel.
-C'est la première fois que j'utilise un framework front.
+C'est la première fois que j'utilise un framework front. Pour le sujet, j'ai décidé de sauvegarder l'historique du chat, et de pouvoir utiliser n utilisateurs avec n'importe quel navigateur.
 
 # Installer l'environnement
 
