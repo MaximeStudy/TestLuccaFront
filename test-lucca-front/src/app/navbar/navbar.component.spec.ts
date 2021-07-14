@@ -1,14 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from '../authentification/services/auth.service';
 
 import { NavbarComponent } from './navbar.component';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
+  let authSpy: any;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbarComponent ]
+      declarations: [ NavbarComponent ],
+      providers: [
+        AuthService,
+      ],
     })
     .compileComponents();
   });
@@ -17,28 +23,12 @@ describe('NavbarComponent', () => {
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-   
-
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should contains Chat', () => {
-    var a = fixture.nativeElement.querySelector('#chat');
-    expect(a.textContent).toEqual('Chat');
-
-    expect(component).toBeTruthy();
-  });
-
-  it('should contains Home', () => {
-    var a = fixture.nativeElement.querySelector('#home');
-    expect(a.textContent).toEqual('Home');
-
-    expect(component).toBeTruthy();
-  });
 
   it('should contains Login', () => {
     var a = fixture.nativeElement.querySelector('#login');
@@ -54,10 +44,34 @@ describe('NavbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should contains Logout', () => {
-    var a = fixture.nativeElement.querySelector('#logout');
-    expect(a.textContent).toEqual('Log out');
+  it('should not contains contains Logout', () => {
+    var logout = fixture.nativeElement.querySelector('#logout');
 
-    expect(component).toBeTruthy();
+    expect(logout).toBeNull();
   });
+
+  
+  it('should not contains Chat', () => {
+    var chat = fixture.nativeElement.querySelector('#chat');
+
+    expect(chat).toBeNull();
+  });
+
+  it('should contains Chat when connected', () => {
+    authSpy =
+    jasmine.createSpyObj('AuthService', ['isAuthenticated']);
+
+    authSpy.isAuthenticated.and.returnValue(isAuthenticated);
+    component = new NavbarComponent(authSpy);
+    var chat = fixture.nativeElement.querySelector('#chat');
+    debugger;
+    expect(chat.textContent).toEqual('Chat');
+
+    expect(chat).toBeTruthy();
+  });
+
+  function isAuthenticated() : Observable<boolean> {
+    console.log("hello");
+    return new BehaviorSubject<boolean>(true).asObservable();
+  }
 });
