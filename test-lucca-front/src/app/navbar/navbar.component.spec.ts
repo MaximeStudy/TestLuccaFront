@@ -7,62 +7,81 @@ import { NavbarComponent } from './navbar.component';
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
-  let authSpy: any;
+  let mockAuthService: AuthService;
 
   beforeEach(async () => {
+
     await TestBed.configureTestingModule({
       declarations: [ NavbarComponent ],
       providers: [
         AuthService,
       ],
-    })
-    .compileComponents();
+    });
   });
 
-  beforeEach(() => {
+
+  async function initializerWithoutAuthenticatedUser() {
+    mockAuthService = new MockAuthServiceWithoutAuthenticatedUser();
+    TestBed.overrideProvider(AuthService, { useValue: mockAuthService });
+    TestBed.compileComponents();
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }
+
+  async function initializerWithAuthenticatedUser() {
+    mockAuthService = new MockAuthServiceWithAuthenticatedUser();
+    TestBed.overrideProvider(AuthService, { useValue: mockAuthService });
+    TestBed.compileComponents();
+    fixture = TestBed.createComponent(NavbarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
 
-  it('should contains Login', () => {
+  it('should contains Login when not connected', () => {
+    initializerWithoutAuthenticatedUser();
+
     var a = fixture.nativeElement.querySelector('#login');
     expect(a.textContent).toEqual('Login');
 
     expect(component).toBeTruthy();
   });
 
-  it('should contains Sign up', () => {
+  it('should contains Sign up when not connected', () => {
+    initializerWithoutAuthenticatedUser();
+
     var a = fixture.nativeElement.querySelector('#sign-up');
     expect(a.textContent).toEqual('Sign up');
 
     expect(component).toBeTruthy();
   });
 
-  it('should not contains contains Logout', () => {
+  it('should not contains contains Logout when not connected', () => {
+    initializerWithoutAuthenticatedUser();
+
     var logout = fixture.nativeElement.querySelector('#logout');
 
     expect(logout).toBeNull();
   });
 
   
-  it('should not contains Chat', () => {
+  it('should not contains Chat when not connected', () => {
+    initializerWithoutAuthenticatedUser();
+
     var chat = fixture.nativeElement.querySelector('#chat');
 
     expect(chat).toBeNull();
   });
 
   it('should contains Chat when connected', () => {
-    authSpy =
-    jasmine.createSpyObj('AuthService', ['isAuthenticated']);
-
-    authSpy.isAuthenticated.and.returnValue(isAuthenticated);
-    component = new NavbarComponent(authSpy);
+    initializerWithAuthenticatedUser();
+    
     var chat = fixture.nativeElement.querySelector('#chat');
     debugger;
     expect(chat.textContent).toEqual('Chat');
@@ -70,8 +89,17 @@ describe('NavbarComponent', () => {
     expect(chat).toBeTruthy();
   });
 
-  function isAuthenticated() : Observable<boolean> {
-    console.log("hello");
-    return new BehaviorSubject<boolean>(true).asObservable();
+
+  class MockAuthServiceWithoutAuthenticatedUser extends AuthService {
+    isAuthenticated() : Observable<boolean> {
+      return  new BehaviorSubject<boolean>(false).asObservable();
+    }
   }
+
+  class MockAuthServiceWithAuthenticatedUser extends AuthService {
+    isAuthenticated() : Observable<boolean> {
+      return  new BehaviorSubject<boolean>(true).asObservable();
+    }
+  }
+
 });
