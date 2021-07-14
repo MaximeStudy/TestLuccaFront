@@ -28,13 +28,19 @@ Si le projet est concluant, on vous rappelle pour discuter de vos choix techniqu
 
 # Implémentation
 
-Pour réaliser le projet, j'ai utilisé Angular pour le client front, Asp.net Core pour gérer les messages temps réels avec SignalR, IdentityServer pour gérer la connexion (avec ef et sql server). 
-Je n'ai pas très bien compris la partie du sujet 'Ce projet doit être réalisé sans code serveur'. A moins d'envoyer les messages en p2p, il est difficile de réaliser l'envoi sans serveur. Le projet que je viens de réaliser ne répond pas à l'énoncé du sujet (TypeScript, serveurs). N'ayant pas de eu réponses à mes questions par mail, j'ai décidé de continuer dans cette voie. Cela me permetra au moins de monter en compétence sur Angular, techno sur laquelle je n'ai jamais travaillé.
+Pour réaliser le projet, j'ai utilisé Angular v12 pour le client front, et Fire Database pour gérer les messages en temps réel.
+C'est la première fois que j'utilise un framework front.
 
-## Exécuter le projet
+# Installer l'environnement
 
-Avant de lancer le projet avec Visual Studio (ou commandes), ne pas oublier de lancer la migration 
+Pour installer l'environnement, j'ai , utilisé le lien suivant : https://angular.io/guide/setup-local
 
-`dotnet ef database update`
+# Lancer l'application
 
-Le projet à été initalisé avec https://docs.microsoft.com/fr-fr/aspnet/core/client-side/spa/angular?view=aspnetcore-5.0&tabs=visual-studio, puis j'ai migré le client Angular dans la version 12. Le plus compliqué à été de refaire fonctionner les fichiers TypeScript du dossier api-authorization.
+- Naviguez jusqu'au dossier test-lucca-front
+
+```cd  test-lucca-front```
+
+- Lancez la commande suivante :
+
+```ng serve --open```
