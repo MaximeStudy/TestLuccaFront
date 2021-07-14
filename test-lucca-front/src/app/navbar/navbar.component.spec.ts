@@ -40,6 +40,7 @@ describe('NavbarComponent', () => {
 
 
   it('should create', () => {
+    initializerWithoutAuthenticatedUser();
     expect(component).toBeTruthy();
   });
 
@@ -47,8 +48,8 @@ describe('NavbarComponent', () => {
   it('should contains Login when not connected', () => {
     initializerWithoutAuthenticatedUser();
 
-    var a = fixture.nativeElement.querySelector('#login');
-    expect(a.textContent).toEqual('Login');
+    var login = fixture.nativeElement.querySelector('#login');
+    expect(login.textContent).toEqual('Login');
 
     expect(component).toBeTruthy();
   });
@@ -56,8 +57,8 @@ describe('NavbarComponent', () => {
   it('should contains Sign up when not connected', () => {
     initializerWithoutAuthenticatedUser();
 
-    var a = fixture.nativeElement.querySelector('#sign-up');
-    expect(a.textContent).toEqual('Sign up');
+    var signup = fixture.nativeElement.querySelector('#sign-up');
+    expect(signup.textContent).toEqual('Sign up');
 
     expect(component).toBeTruthy();
   });
@@ -70,6 +71,14 @@ describe('NavbarComponent', () => {
     expect(logout).toBeNull();
   });
 
+  it('should not contains contains hello user when not connected', () => {
+    initializerWithoutAuthenticatedUser();
+
+    var helloUser = fixture.nativeElement.querySelector('#hello');
+
+    expect(helloUser).toBeNull();
+  });
+
   
   it('should not contains Chat when not connected', () => {
     initializerWithoutAuthenticatedUser();
@@ -79,14 +88,21 @@ describe('NavbarComponent', () => {
     expect(chat).toBeNull();
   });
 
+
   it('should contains Chat when connected', () => {
     initializerWithAuthenticatedUser();
     
     var chat = fixture.nativeElement.querySelector('#chat');
-    debugger;
+    
     expect(chat.textContent).toEqual('Chat');
+  });
 
-    expect(chat).toBeTruthy();
+  it('should contains hello user when connected', () => {
+    initializerWithAuthenticatedUser();
+    
+    var helloUser = fixture.nativeElement.querySelector('#hello');
+    
+    expect(helloUser.textContent).toEqual('Hello Maxime');
   });
 
 
@@ -99,6 +115,10 @@ describe('NavbarComponent', () => {
   class MockAuthServiceWithAuthenticatedUser extends AuthService {
     isAuthenticated() : Observable<boolean> {
       return  new BehaviorSubject<boolean>(true).asObservable();
+    }
+
+    getUsername() : Observable<string> {
+      return new BehaviorSubject<string>("Maxime").asObservable();
     }
   }
 
