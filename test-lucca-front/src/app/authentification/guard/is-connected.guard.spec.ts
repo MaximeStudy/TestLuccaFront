@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -15,9 +16,12 @@ describe('IsConnectedGuard', () => {
         AuthService,
       ],
       imports: [
-        RouterTestingModule
+        RouterTestingModule.withRoutes([
+          { path: 'authentification/login', component: TestComponent}
+      ])
       ]
     });
+
     service = TestBed.inject(AuthService);
     guard = TestBed.inject(IsConnectedGuard);
   });
@@ -26,12 +30,13 @@ describe('IsConnectedGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should return false for canActivate() when no user is logged in', ()=> {
+  it('should return false for canActivate() when no user are logged in', ()=> {
     const result = guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: 'testUrl'});
     expect(result).toBe(false);
   });
 
-  it('should return true for canActivate() when a user is logged in', ()=> {
+
+  it('should return true for canActivate() when a user are logged in', ()=> {
     var user: string = "";
     var pwd: string= "";
     service.loginUser(user, pwd);
@@ -39,4 +44,15 @@ describe('IsConnectedGuard', () => {
     expect(result).toBe(true);
   });
 
+  
+  
 });
+
+@Component({
+  selector: 'app-banner',
+  template: '<h1>{{title}}</h1>',
+  styles: ['h1 { color: green; font-size: 350%}']
+})
+export class TestComponent {
+  title = 'Test component';
+}
