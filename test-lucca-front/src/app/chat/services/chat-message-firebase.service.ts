@@ -3,12 +3,12 @@ import { Observable, of } from 'rxjs';
 import { ChatMessage } from '../shared/chat-message';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
-import { IChatMessageService } from './ichat-message-service';
+import { ChatMessageRepository } from './chat-message-repository';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChatMessageFirebaseService implements IChatMessageService {
+export class ChatMessageFirebaseService implements ChatMessageRepository {
 
     itemsRef: AngularFireList<any>;
     items: Observable<ChatMessage[]>;

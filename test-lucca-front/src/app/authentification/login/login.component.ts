@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(formValues:any) {
-    console.log(formValues);
     if(this.loginForm.valid) {
       this.authService.loginUser(formValues.username, formValues.password);
       this.router.navigate(['/chat']);
