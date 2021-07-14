@@ -33,7 +33,7 @@ C'est la première fois que j'utilise un framework front.
 
 # Installer l'environnement
 
-Pour installer l'environnement, j'ai , utilisé le lien suivant : https://angular.io/guide/setup-local
+Pour installer l'environnement, j'ai utilisé le lien suivant : https://angular.io/guide/setup-local
 
 # Lancer l'application
 
