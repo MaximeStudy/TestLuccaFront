@@ -8,7 +8,7 @@ export class AuthService {
   constructor() { }
 
   connected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  username: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  username: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
   isAuthenticated() : Observable<boolean> {
     return this.connected.asObservable();
@@ -16,10 +16,10 @@ export class AuthService {
 
   logoutUser() {
     this.connected.next(false);
-    this.username.next("");
+    this.username.next(null);
   }
 
-  getUsername() : Observable<string> {
+  getUsername() : Observable<string | null> {
     return this.username.asObservable();
   }
 

@@ -13,4 +13,42 @@ describe('AuthService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should by default not be authenticated', () => {
+    let isAuth:any;
+    service.isAuthenticated().subscribe(isAuthenticated => isAuth = isAuthenticated);
+    expect(isAuth).toEqual(false);
+  });
+
+  it('should by default not have userName', () => {
+    let expectedUserName:any;
+    service.getUsername().subscribe(userName => expectedUserName = userName);
+
+    expect(expectedUserName).toBeNull();
+  });
+
+
+
+  it('should be authenticated when login', () => {
+    let isAuth:any;
+    let user: string = "user";
+    let password: string = "pwd";
+
+    service.loginUser(user,password);
+    service.isAuthenticated().subscribe(isAuthenticated => isAuth = isAuthenticated);
+
+    expect(isAuth).toEqual(true);
+  });
+
+  it('should get userName when login', () => {
+    let expectedUserName:any;
+    let userName: string = "user";
+    let password: string = "pwd";
+
+    service.loginUser(userName,password);
+    service.getUsername().subscribe(userName => expectedUserName = userName);
+
+    expect(userName).toEqual(expectedUserName);
+  });
+
 });
