@@ -3,14 +3,16 @@ import { Observable, of } from 'rxjs';
 import { ChatMessage } from '../shared/chat-message';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
+import { IChatMessageService } from './ichat-message-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChatMessageFirebaseService {
+export class ChatMessageFirebaseService implements IChatMessageService {
 
-  itemsRef: AngularFireList<any>;
+    itemsRef: AngularFireList<any>;
     items: Observable<ChatMessage[]>;
+
     constructor(db: AngularFireDatabase) {
       this.itemsRef = db.list('messages');
       // Use snapshotChanges().map() to store the key
@@ -21,7 +23,7 @@ export class ChatMessageFirebaseService {
       );
     }
   
-    add(message: ChatMessage) {
+    add(message: ChatMessage) : void {
       this.itemsRef.push(message);
     }
 
