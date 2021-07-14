@@ -39,8 +39,8 @@ var firebaseConfig = {
     ChatMessagesComponent
     ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     FormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireStorageModule,
