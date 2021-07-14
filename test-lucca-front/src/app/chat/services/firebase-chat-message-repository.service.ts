@@ -8,7 +8,7 @@ import { ChatMessageRepository } from './chat-message-repository';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatMessageFirebaseService implements ChatMessageRepository {
+export class FirebaseChatMessageRepositoryService implements ChatMessageRepository {
 
     itemsRef: AngularFireList<any>;
     items: Observable<ChatMessage[]>;

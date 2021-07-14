@@ -6,7 +6,7 @@ import { ChatMessageRepository } from './chat-message-repository';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatMessageService implements ChatMessageRepository {
+export class LocalChatMessageRepositoryService implements ChatMessageRepository {
   messages: ChatMessage[] = [];
   constructor() { }
 

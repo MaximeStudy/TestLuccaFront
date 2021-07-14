@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/authentification/services/auth.service';
-import { ChatMessageFirebaseService } from '../services/chat-message-firebase.service';
+import { FirebaseChatMessageRepositoryService } from '../services/firebase-chat-message-repository.service';
 
 @Component({
   selector: 'app-chat-container',
@@ -14,7 +14,7 @@ export class ChatContainerComponent implements OnInit {
   sendMessageForm!: FormGroup;
   private message!:FormControl;
 
-  constructor(private chatMessageService: ChatMessageFirebaseService, public authService: AuthService) { }
+  constructor(private chatMessageService: FirebaseChatMessageRepositoryService, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.getUsername().subscribe(
