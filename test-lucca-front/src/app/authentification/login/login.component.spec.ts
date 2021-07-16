@@ -215,34 +215,34 @@ describe('LoginComponent', () => {
     expect(false).toEqual(hasError);
   });
 
-  // it('should disable submit button if form is invalid', () => {
+  it('should disable submit button if form is invalid', () => {
 
-  //   fixture.detectChanges();
+    fixture.detectChanges();
 
-  //   let submitbutton = fixture.nativeElement.querySelector('#login-submit');
-  //   let isDisabled = submitbutton.disable;
+    let submitButton = fixture.nativeElement.querySelector('#login-submit');
+    let isDisabled = submitButton.disabled;
 
-  //   expect(true).toEqual(isDisabled);
-  // });
+    expect(true).toEqual(isDisabled);
+  });
 
 
-  // it('should enable submit button if form is valid', () => {
-  //   let validValue = "hello";
-  //   let username = fixture.nativeElement.querySelector('#username');
-  //   username.value = validValue;
-  //   username.dispatchEvent(new Event('input'));
-  //   component.loginForm.get('username')?.markAsTouched();
+  it('should enable submit button if form is valid', () => {
+    let validValue = "hello";
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = validValue;
+    username.dispatchEvent(new Event('input'));
+    component.loginForm.get('username')?.markAsTouched();
 
-  //   let password = fixture.nativeElement.querySelector('#password');
-  //   password.value = validValue;
-  //   password.dispatchEvent(new Event('input'));
-  //   component.loginForm.get('password')?.markAsTouched();
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = validValue;
+    password.dispatchEvent(new Event('input'));
+    component.loginForm.get('password')?.markAsTouched();
 
-  //   fixture.detectChanges();
+    fixture.detectChanges();
 
-  //   let submitbutton = fixture.nativeElement.querySelector('#login-submit');
-  //   let isDisabled = submitbutton.disable;
+    let submitButton = fixture.nativeElement.querySelector('#login-submit');
+    let isDisabled = submitButton.disabled;
 
-  //   expect(false).toEqual(isDisabled);
-  // });
+    expect(false).toEqual(isDisabled);
+  });
 });
