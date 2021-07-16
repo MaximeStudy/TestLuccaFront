@@ -86,76 +86,79 @@ describe('LoginComponent', () => {
     expect(false).toEqual(validate);
   });
 
-  // it('should form group have error class when username is not written after selecting input', () => {
+  it('should form group have error class when username is not written after selecting input', () => {
     
-  //   var userName = fixture.nativeElement.querySelector('#username');
-  //   var userNameFormGroup = fixture.nativeElement.querySelector('#username-form-group');
-  //   userName.focus();
-  //   userName.dispatchEvent(new Event('input'));
-  //   userName.blur();
+    var userName = fixture.nativeElement.querySelector('#username');
+    var userNameFormGroup = fixture.nativeElement.querySelector('#username-form-group');
+    userName.focus();
+    userName.dispatchEvent(new Event('input'));
+    userName.blur();
+    component.loginForm.get('username')?.markAsTouched();
+    fixture.detectChanges();
 
-  //   var hasError = userNameFormGroup.classList.contains("error");
+    var hasError = userNameFormGroup.classList.contains("error");
 
-  //   expect(true).toEqual(hasError);
-  // });
+    expect(true).toEqual(hasError);
+  });
 
-  // it('should username form group have error with required when input is empty', () => {
-  //   fixture.detectChanges();
-  //   var userName = fixture.nativeElement.querySelector('#username');
+  it('should username form group have error with required when input is empty', () => {
+    fixture.detectChanges();
+    var userName = fixture.nativeElement.querySelector('#username');
    
-  //   userName.focus();
-  //   userName.dispatchEvent(new Event('input'));
-  //   userName.blur();
+    userName.focus();
+    userName.dispatchEvent(new Event('input'));
+    userName.blur();
+    component.loginForm.get('username')?.markAsTouched();
+    fixture.detectChanges();
 
-  //   var em = fixture.nativeElement.querySelector('#username-form-group em');
+    var em = fixture.nativeElement.querySelector('#username-form-group em');
     
-  //   expect(em.textContent).toEqual("Required");
-  // });
+    expect(em.textContent).toEqual("Required");
+  });
 
   
-  // it('should form group have error class when password is not written after selecting input', () => {
+  it('should form group have error class when password is not written after selecting input', () => {
     
-  //   var password = fixture.nativeElement.querySelector('#password');
-  //   var passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
-  //   password.focus();
-  //   password.dispatchEvent(new Event('input'));
-  //   password.blur();
+    var password = fixture.nativeElement.querySelector('#password');
+    var passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
+    password.focus();
+    password.dispatchEvent(new Event('input'));
+    password.blur();
+    component.loginForm.get('password')?.markAsTouched();
+    fixture.detectChanges();
 
-  //   var hasError = passwordFormGroup.classList.contains("error");
+    var hasError = passwordFormGroup.classList.contains("error");
 
-  //   expect(true).toEqual(hasError);
-  // });
+    expect(true).toEqual(hasError);
+  });
 
-  // it('should password form group have error with required when input is empty', () => {
+  it('should password form group have error with required when input is empty', () => {
     
-  //   var password = fixture.nativeElement.querySelector('#password');
+    var password = fixture.nativeElement.querySelector('#password');
    
-  //   password.focus();
-  //   password.dispatchEvent(new Event('input'));
-  //   password.blur();
-  //   fixture.detectChanges();
+    password.focus();
+    password.dispatchEvent(new Event('input'));
+    password.blur();
+    component.loginForm.get('password')?.markAsTouched();
+    fixture.detectChanges();
 
-  //   var em = fixture.nativeElement.querySelector('#password-form-group em');
+    var em = fixture.nativeElement.querySelector('#password-form-group em');
     
-  //   expect(em.textContent).toEqual("Required");
-  // });
+    expect(em.textContent).toEqual("Required");
+  });
 
-  // it('should form group have error class when mouse over submit button ', () => {
+  it('should form group have error class when mouse over submit button ', () => {
     
-  //   var passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
-  //   let mouseEnterEvent = new MouseEvent('mouseenter', {
-  //     bubbles: true,
-  //     cancelable: true,
-  //     view: window
-  //   });
+    var passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
 
-  //   var submitSpan = fixture.nativeElement.querySelector('#submit-span');
-  //   submitSpan.dispatchEvent(mouseEnterEvent);
+    var submitSpan = fixture.nativeElement.querySelector('#submit-span');
+    submitSpan.dispatchEvent(new MouseEvent('mouseenter'));
 
-  //   fixture.detectChanges();
+    fixture.detectChanges();
 
-  //   var hasError = passwordFormGroup.classList.contains("error");
+    var hasError = passwordFormGroup.classList.contains("error");
 
-  //   expect(true).toEqual(hasError);
-  // });
+    expect(true).toEqual(hasError);
+  });
+  
 });
