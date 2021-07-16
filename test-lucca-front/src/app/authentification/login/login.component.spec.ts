@@ -33,20 +33,20 @@ describe('LoginComponent', () => {
   });
 
   it('should display empty username', () => {
-    var userName = fixture.nativeElement.querySelector('#username');
+    let userName = fixture.nativeElement.querySelector('#username');
 
     expect(userName.textContent).toEqual('');
   });
 
   it('should display empty password', () => {
-    var userName = fixture.nativeElement.querySelector('#password');
+    let userName = fixture.nativeElement.querySelector('#password');
 
     expect(userName.textContent).toEqual('');
   });
 
   it('should databind with username form control', () => {
-    var expectedValue = "hello";
-    var userName = fixture.nativeElement.querySelector('#username');
+    let expectedValue = "hello";
+    let userName = fixture.nativeElement.querySelector('#username');
     userName.value = expectedValue;
     userName.dispatchEvent(new Event('input'));
 
@@ -54,8 +54,8 @@ describe('LoginComponent', () => {
   });
 
   it('should databind with password form control', () => {
-    var expectedValue = "hello password";
-    var password = fixture.nativeElement.querySelector('#password');
+    let expectedValue = "hello password";
+    let password = fixture.nativeElement.querySelector('#password');
     password.value = expectedValue;
     password.dispatchEvent(new Event('input'));
 
@@ -63,47 +63,47 @@ describe('LoginComponent', () => {
   });
 
   it('should validate with valid username', () => {
-    var validValue = "hello";
-    var userName = fixture.nativeElement.querySelector('#username');
+    let validValue = "hello";
+    let userName = fixture.nativeElement.querySelector('#username');
     userName.value = validValue;
     userName.dispatchEvent(new Event('input'));
     component.loginForm.get('username')?.markAsTouched();
 
-    var validate = component.validateUsername();
+    let validate = component.validateUsername();
 
     expect(true).toEqual(validate);
   });
 
   it('should not validate with invalid username', () => {
-    var invalidValue = "";
-    var userName = fixture.nativeElement.querySelector('#username');
+    let invalidValue = "";
+    let userName = fixture.nativeElement.querySelector('#username');
     userName.value = invalidValue;
     userName.dispatchEvent(new Event('input'));
     component.loginForm.get('username')?.markAsTouched();
 
-    var validate = component.validateUsername();
+    let validate = component.validateUsername();
 
     expect(false).toEqual(validate);
   });
 
   it('should form group have error class when username is not written after selecting input', () => {
     
-    var userName = fixture.nativeElement.querySelector('#username');
-    var userNameFormGroup = fixture.nativeElement.querySelector('#username-form-group');
+    let userName = fixture.nativeElement.querySelector('#username');
+    let userNameFormGroup = fixture.nativeElement.querySelector('#username-form-group');
     userName.focus();
     userName.dispatchEvent(new Event('input'));
     userName.blur();
     component.loginForm.get('username')?.markAsTouched();
     fixture.detectChanges();
 
-    var hasError = userNameFormGroup.classList.contains("error");
+    let hasError = userNameFormGroup.classList.contains("error");
 
     expect(true).toEqual(hasError);
   });
 
   it('should username form group have error with required when input is empty', () => {
     fixture.detectChanges();
-    var userName = fixture.nativeElement.querySelector('#username');
+    let userName = fixture.nativeElement.querySelector('#username');
    
     userName.focus();
     userName.dispatchEvent(new Event('input'));
@@ -111,7 +111,7 @@ describe('LoginComponent', () => {
     component.loginForm.get('username')?.markAsTouched();
     fixture.detectChanges();
 
-    var em = fixture.nativeElement.querySelector('#username-form-group em');
+    let em = fixture.nativeElement.querySelector('#username-form-group em');
     
     expect(em.textContent).toEqual("Required");
   });
@@ -119,22 +119,22 @@ describe('LoginComponent', () => {
   
   it('should form group have error class when password is not written after selecting input', () => {
     
-    var password = fixture.nativeElement.querySelector('#password');
-    var passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
+    let password = fixture.nativeElement.querySelector('#password');
+    let passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
     password.focus();
     password.dispatchEvent(new Event('input'));
     password.blur();
     component.loginForm.get('password')?.markAsTouched();
     fixture.detectChanges();
 
-    var hasError = passwordFormGroup.classList.contains("error");
+    let hasError = passwordFormGroup.classList.contains("error");
 
     expect(true).toEqual(hasError);
   });
 
   it('should password form group have error with required when input is empty', () => {
     
-    var password = fixture.nativeElement.querySelector('#password');
+    let password = fixture.nativeElement.querySelector('#password');
    
     password.focus();
     password.dispatchEvent(new Event('input'));
@@ -142,76 +142,107 @@ describe('LoginComponent', () => {
     component.loginForm.get('password')?.markAsTouched();
     fixture.detectChanges();
 
-    var em = fixture.nativeElement.querySelector('#password-form-group em');
+    let em = fixture.nativeElement.querySelector('#password-form-group em');
     
     expect(em.textContent).toEqual("Required");
   });
 
   it('should password form group have error class when mouse over submit button when input not touched', () => {
     
-    var passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
+    let passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
 
-    var submitSpan = fixture.nativeElement.querySelector('#submit-span');
+    let submitSpan = fixture.nativeElement.querySelector('#submit-span');
     submitSpan.dispatchEvent(new MouseEvent('mouseenter'));
 
     fixture.detectChanges();
 
-    var hasError = passwordFormGroup.classList.contains("error");
+    let hasError = passwordFormGroup.classList.contains("error");
 
     expect(true).toEqual(hasError);
   });
   
   it('should username form group have error class when mouse over submit button when input not touched', () => {
     
-    var usernameFormGroup = fixture.nativeElement.querySelector('#username-form-group');
+    let usernameFormGroup = fixture.nativeElement.querySelector('#username-form-group');
 
-    var submitSpan = fixture.nativeElement.querySelector('#submit-span');
+    let submitSpan = fixture.nativeElement.querySelector('#submit-span');
     submitSpan.dispatchEvent(new MouseEvent('mouseenter'));
 
     fixture.detectChanges();
 
-    var hasError = usernameFormGroup.classList.contains("error");
+    let hasError = usernameFormGroup.classList.contains("error");
 
     expect(true).toEqual(hasError);
   });
 
   it('should password form group not have error class when mouse over submit button and input touched/valid', () => {
     
-    var passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
+    let passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
 
-    var validValue = "hello";
-    var password = fixture.nativeElement.querySelector('#password');
+    let validValue = "hello";
+    let password = fixture.nativeElement.querySelector('#password');
     password.value = validValue;
     password.dispatchEvent(new Event('input'));
     component.loginForm.get('password')?.markAsTouched();
     
-    var submitSpan = fixture.nativeElement.querySelector('#submit-span');
+    let submitSpan = fixture.nativeElement.querySelector('#submit-span');
     submitSpan.dispatchEvent(new MouseEvent('mouseenter'));
 
     fixture.detectChanges();
 
-    var hasError = passwordFormGroup.classList.contains("error");
+    let hasError = passwordFormGroup.classList.contains("error");
 
     expect(false).toEqual(hasError);
   });
 
   it('should username form group not have error class when mouse over submit button and input touched/valid', () => {
     
-    var usernameFormGroup = fixture.nativeElement.querySelector('#username-form-group');
+    let usernameFormGroup = fixture.nativeElement.querySelector('#username-form-group');
 
-    var validValue = "hello";
-    var username = fixture.nativeElement.querySelector('#username');
+    let validValue = "hello";
+    let username = fixture.nativeElement.querySelector('#username');
     username.value = validValue;
     username.dispatchEvent(new Event('input'));
     component.loginForm.get('username')?.markAsTouched();
     
-    var submitSpan = fixture.nativeElement.querySelector('#submit-span');
+    let submitSpan = fixture.nativeElement.querySelector('#submit-span');
     submitSpan.dispatchEvent(new MouseEvent('mouseenter'));
 
     fixture.detectChanges();
 
-    var hasError = usernameFormGroup.classList.contains("error");
+    let hasError = usernameFormGroup.classList.contains("error");
 
     expect(false).toEqual(hasError);
   });
+
+  // it('should disable submit button if form is invalid', () => {
+
+  //   fixture.detectChanges();
+
+  //   let submitbutton = fixture.nativeElement.querySelector('#login-submit');
+  //   let isDisabled = submitbutton.disable;
+
+  //   expect(true).toEqual(isDisabled);
+  // });
+
+
+  // it('should enable submit button if form is valid', () => {
+  //   let validValue = "hello";
+  //   let username = fixture.nativeElement.querySelector('#username');
+  //   username.value = validValue;
+  //   username.dispatchEvent(new Event('input'));
+  //   component.loginForm.get('username')?.markAsTouched();
+
+  //   let password = fixture.nativeElement.querySelector('#password');
+  //   password.value = validValue;
+  //   password.dispatchEvent(new Event('input'));
+  //   component.loginForm.get('password')?.markAsTouched();
+
+  //   fixture.detectChanges();
+
+  //   let submitbutton = fixture.nativeElement.querySelector('#login-submit');
+  //   let isDisabled = submitbutton.disable;
+
+  //   expect(false).toEqual(isDisabled);
+  // });
 });
