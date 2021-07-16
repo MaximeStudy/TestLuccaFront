@@ -24,6 +24,7 @@ describe('LoginComponent', () => {
     .compileComponents();
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
 
@@ -44,7 +45,6 @@ describe('LoginComponent', () => {
   });
 
   it('should databind with username form control', () => {
-    fixture.detectChanges();
     var expectedValue = "hello";
     var userName = fixture.nativeElement.querySelector('#username');
     userName.value = expectedValue;
@@ -54,7 +54,6 @@ describe('LoginComponent', () => {
   });
 
   it('should databind with password form control', () => {
-    fixture.detectChanges();
     var expectedValue = "hello password";
     var password = fixture.nativeElement.querySelector('#password');
     password.value = expectedValue;
@@ -64,34 +63,28 @@ describe('LoginComponent', () => {
   });
 
   it('should validate with valid username', () => {
-    fixture.detectChanges();
     var validValue = "hello";
     var userName = fixture.nativeElement.querySelector('#username');
-    userName.focus();
     userName.value = validValue;
     userName.dispatchEvent(new Event('input'));
-    userName.blur();
-
+    component.loginForm.get('username')?.markAsTouched();
 
     var validate = component.validateUsername();
 
     expect(true).toEqual(validate);
   });
 
-  // it('should not validate with invalid username', () => {
-  //   fixture.detectChanges();
+  it('should not validate with invalid username', () => {
+    var invalidValue = "";
+    var userName = fixture.nativeElement.querySelector('#username');
+    userName.value = invalidValue;
+    userName.dispatchEvent(new Event('input'));
+    component.loginForm.get('username')?.markAsTouched();
 
-  //   var validValue = "";
-  //   var userName = fixture.nativeElement.querySelector('#username');
-  //   userName.focus();
-  //   userName.value = validValue;
-  //   userName.dispatchEvent(new Event('input'));
-  //   userName.blur();
+    var validate = component.validateUsername();
 
-  //   var validate = component.validateUsername();
-
-  //   expect(false).toEqual(validate);
-  // });
+    expect(false).toEqual(validate);
+  });
 
   // it('should form group have error class when username is not written after selecting input', () => {
     
