@@ -50,8 +50,6 @@ var firebaseConfig = {
   providers: [
     Title,
     AuthService,
-    LocalChatMessageRepositoryService,
-    FirebaseChatMessageRepositoryService,
     { provide: ChatMessageRepository, useClass: FirebaseChatMessageRepositoryService}
   ],
   bootstrap: [AppComponent]
