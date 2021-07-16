@@ -109,4 +109,32 @@ describe('ChatMessagesComponent', () => {
     expect(otherUsername).toEqual(usernameFromMessage[1].textContent.trim());
     expect(contentOther).toEqual(contentFromMessage[1].textContent.trim());
   });
+
+  it('should scroll to bottom when new message', () => {
+    let currentUsername= 'me';
+    let otherUsername= 'other';
+    let contentOther = 'hello other';
+    component.currentUsername  = currentUsername;
+    //create various messages in order to activate scroll bar
+    for(let i=0; i<50 ;i++) {
+      chatMessageRepository.add({content:contentOther,sender:otherUsername});
+    }
+  
+    fixture.detectChanges();
+
+    var messagesDiv = fixture.nativeElement.querySelector('#messages-div');
+    var lastHeight = messagesDiv.scrollTop;
+    chatMessageRepository.add({content:contentOther,sender:otherUsername});
+    fixture.detectChanges();
+
+    var currentHeight = messagesDiv.scrollTop;
+    var isEndOfElement = messagesDiv.scrollHeight - Math.ceil(messagesDiv.scrollTop) === messagesDiv.clientHeight; // I don't know why we loss precision
+    console.log(messagesDiv.scrollHeight);
+    console.log(messagesDiv.scrollTop);
+    console.log(messagesDiv.clientHeight);
+
+    expect(currentHeight).toBeGreaterThan(lastHeight);
+    expect(true).toEqual(isEndOfElement);
+  });
+
 });
