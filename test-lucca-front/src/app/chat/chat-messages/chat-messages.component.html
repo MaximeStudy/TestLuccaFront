@@ -1,4 +1,4 @@
-<div  id="test" class="messages" #scrollMe>
+<div  id="messages-div" class="messages" #scrollMe>
     <div *ngFor='let msg of messages'>
       <div *ngIf="msg.sender !== currentUsername" class="d-flex flex-row p-3">
         <div class="message-bubble-other ml-2 p-3">

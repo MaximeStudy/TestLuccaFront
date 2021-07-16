@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { AuthService } from 'src/app/authentification/services/auth.service';
 import { ChatMessageRepository } from '../services/chat-message-repository';
 import { LocalChatMessageRepositoryService } from '../services/local-chat-message-repository.service';
 
@@ -9,9 +7,10 @@ import { ChatMessagesComponent } from './chat-messages.component';
 describe('ChatMessagesComponent', () => {
   let component: ChatMessagesComponent;
   let fixture: ComponentFixture<ChatMessagesComponent>;
-  let mockAuthService: AuthService;
+  let chatMessageRepository: ChatMessageRepository;
 
   beforeEach(() => {
+
     TestBed.configureTestingModule({
       declarations: [ ChatMessagesComponent ],
       providers: [
@@ -20,9 +19,7 @@ describe('ChatMessagesComponent', () => {
       imports: [
       ]
     });
-
-    mockAuthService = new MockAuthServiceWithoutAuthenticatedUser();
-    TestBed.overrideProvider(AuthService, { useValue: mockAuthService });
+    chatMessageRepository = TestBed.inject(ChatMessageRepository);
     fixture = TestBed.createComponent(ChatMessagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -33,19 +30,35 @@ describe('ChatMessagesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  class MockAuthServiceWithoutAuthenticatedUser extends AuthService {
-    isAuthenticated() : Observable<boolean> {
-      return  new BehaviorSubject<boolean>(false).asObservable();
-    }
-  }
+  it('should create with null input', () => {
+    expect(component.currentUsername).toBeUndefined();
+  });
 
-  class MockAuthServiceWithAuthenticatedUser extends AuthService {
-    isAuthenticated() : Observable<boolean> {
-      return  new BehaviorSubject<boolean>(true).asObservable();
-    }
+  it('messages should bind properly with chatmessageRepository', () => {
+    let currentUsername= 'me';
+    component.currentUsername  = currentUsername;
+    chatMessageRepository.add({content:'hello',sender:currentUsername});
+    expect(component.messages.length).toEqual(1);
+  });
 
-    getUsername() : Observable<string> {
-      return new BehaviorSubject<string>("Maxime").asObservable();
-    }
-  }
+  it('message from current user should have a div with flex-row-reverse and a chidlren with message-bubble-me', () => {
+    let currentUsername= 'me';
+    component.currentUsername  = currentUsername;
+    chatMessageRepository.add({content:'hello',sender:currentUsername});
+    fixture.detectChanges();
+
+    var messageFromCurrentUser = fixture.nativeElement.querySelector('.flex-row-reverse .message-bubble-me');
+    expect(messageFromCurrentUser).not.toBeNull();
+  });
+
+  it('message from other user should have a div with flex-row-reverse and a chidlren with message-bubble-me', () => {
+    let currentUsername= 'me';
+    let otherUsername= 'other';
+    component.currentUsername  = currentUsername;
+    chatMessageRepository.add({content:'hello',sender:otherUsername});
+    fixture.detectChanges();
+
+    var messageFromCurrentUser = fixture.nativeElement.querySelector('.flex-row .message-bubble-other');
+    expect(messageFromCurrentUser).not.toBeNull();
+  });
 });
