@@ -1,7 +1,9 @@
+import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ChatMessage } from "../shared/chat-message";
 
-export interface ChatMessageRepository {
-    getMessages(): Observable<ChatMessage[]>;
-    add(message: ChatMessage) : void;
+@Injectable()
+export abstract class ChatMessageRepository {
+    abstract getMessages(): Observable<ChatMessage[]>;
+    abstract add(message: ChatMessage) : void;
 }

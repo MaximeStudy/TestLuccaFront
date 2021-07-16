@@ -16,6 +16,7 @@ import { LocalChatMessageRepositoryService } from './chat/services/local-chat-me
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FirebaseChatMessageRepositoryService } from './chat/services/firebase-chat-message-repository.service';
+import { ChatMessageRepository } from './chat/services/chat-message-repository';
 
 var firebaseConfig = {
   apiKey: "AIzaSyA0bWptZKWm7jLTOjQEcv8qo51eUVyJBWY",
@@ -50,7 +51,8 @@ var firebaseConfig = {
     Title,
     AuthService,
     LocalChatMessageRepositoryService,
-    FirebaseChatMessageRepositoryService
+    FirebaseChatMessageRepositoryService,
+    { provide: ChatMessageRepository, useClass: FirebaseChatMessageRepositoryService}
   ],
   bootstrap: [AppComponent]
 })
