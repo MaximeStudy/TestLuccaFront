@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './authentification/services/auth.service';
 import { ChatContainerComponent } from './chat/chat-container/chat-container.component';
 import { ChatMessagesComponent } from './chat/chat-messages/chat-messages.component';
-import { LocalChatMessageRepositoryService } from './chat/services/local-chat-message-repository.service';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
