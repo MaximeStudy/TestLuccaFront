@@ -11,9 +11,9 @@ import { ChatMessagesComponent } from '../chat-messages/chat-messages.component'
 describe('ChatContainerComponent', () => {
   let component: ChatContainerComponent;
   let fixture: ComponentFixture<ChatContainerComponent>;
-
+  let mockAuthService:MockAuthServiceWithAuthenticatedUser;
   beforeEach(() => {
-    var mockAuthService = new MockAuthServiceWithAuthenticatedUser();
+    mockAuthService = new MockAuthServiceWithAuthenticatedUser();
 
     TestBed.configureTestingModule({
       declarations: [
@@ -38,8 +38,24 @@ describe('ChatContainerComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should create ChatMessagesComponent', () => {
+    let chatMessages = fixture.nativeElement.querySelector('app-chat-messages');
+    expect(chatMessages).not.toEqual(null);
+  });
+
+  it('should create ChatMessagesComponent with current username', () => {
+    let expectedValue!:string;
+    let chatMessages = fixture.nativeElement.querySelector('app-chat-messages');
+
+    let currentNameBindedValue = chatMessages.attributes.getNamedItem('ng-reflect-current-username').value;
+    mockAuthService.getUsername().subscribe(username => expectedValue = username );
+
+    expect(expectedValue).toEqual(currentNameBindedValue);
+  });
+
 
   class MockAuthServiceWithAuthenticatedUser extends AuthService {
+    
     isAuthenticated() : Observable<boolean> {
       return  new BehaviorSubject<boolean>(true).asObservable();
     }
