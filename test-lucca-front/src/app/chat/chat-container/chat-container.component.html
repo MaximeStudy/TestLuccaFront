@@ -9,16 +9,16 @@
         <app-chat-messages [currentUsername]="this.username">
         </app-chat-messages>
       </div>
-      <form  [formGroup]="sendMessageForm" (ngSubmit)="sendMessage(sendMessageForm.value)" autocomplete="off" novalidate>
+      <form [formGroup]="sendMessageForm" (ngSubmit)="sendMessage(sendMessageForm.value)" autocomplete="off" novalidate>
         <div class="form-group px-3 py-3">
           <div class="d-flex">
             <div class="d-flex flex-row">
               <div class="pt-1 pr-3 pr-4">
-                <textarea class="form-control" placeholder="Write a message!" formControlName="message"></textarea>
+                <textarea class="form-control" placeholder="Write a message!" formControlName="message" id="message"></textarea>
               </div>
               <div class="p-3">
                 <span>
-                  <button [disabled]="sendMessageForm.invalid" class="btn btn-primary" type="submit" >Send</button>
+                  <button id="send-message" [disabled]="sendMessageForm.invalid" class="btn btn-primary" type="submit" >Send</button>
                 </span>
               </div>
             </div>

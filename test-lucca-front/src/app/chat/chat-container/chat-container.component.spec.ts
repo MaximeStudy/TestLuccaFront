@@ -53,6 +53,45 @@ describe('ChatContainerComponent', () => {
     expect(expectedValue).toEqual(currentNameBindedValue);
   });
 
+  it('should disable submit button when create', () => {
+
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#send-message');
+    let isDisabled = submitButton.disabled;
+
+    expect(true).toEqual(isDisabled);
+  });
+
+  it('should enable submit button when message is not empty', () => {
+
+    let messageNotEmpty="hello world!";
+    let message = fixture.nativeElement.querySelector('#message');
+    message.value = messageNotEmpty;
+    message.dispatchEvent(new Event('input'));
+    component.sendMessageForm.get('message')?.markAsTouched();
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#send-message');
+    let isDisabled = submitButton.disabled;
+
+    expect(false).toEqual(isDisabled);
+  });
+
+  it('should not enable submit button when message is empty and touched', () => {
+
+    let emptyMessage="";
+    let message = fixture.nativeElement.querySelector('#message');
+    message.value = emptyMessage;
+    message.dispatchEvent(new Event('input'));
+    component.sendMessageForm.get('message')?.markAsTouched();
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#send-message');
+    let isDisabled = submitButton.disabled;
+
+    expect(true).toEqual(isDisabled);
+  });
 
   class MockAuthServiceWithAuthenticatedUser extends AuthService {
     
