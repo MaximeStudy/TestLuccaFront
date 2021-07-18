@@ -14,7 +14,7 @@ export class ChatContainerComponent implements OnInit {
   sendMessageForm!: FormGroup;
   private message!:FormControl;
 
-  constructor(private chatMessageRepository: ChatMessageRepository, public authService: AuthService) { }
+  constructor(private chatMessageRepository: ChatMessageRepository, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.getUsername().subscribe(

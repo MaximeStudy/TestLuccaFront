@@ -100,6 +100,7 @@ describe('ChatContainerComponent', () => {
 
 
   it('should add new message when submit', () => {
+    const spy = spyOn(chatMessageRepository, 'add');
 
     let messageNotEmpty="hello world!";
     let message = fixture.nativeElement.querySelector('#message');
@@ -110,11 +111,8 @@ describe('ChatContainerComponent', () => {
 
     let submitButton = fixture.nativeElement.querySelector('#send-message');
     submitButton.click();
-    let currentMessages!:ChatMessage[];
-    let expectedResult = {sender:mockUsername, content: messageNotEmpty};
-    chatMessageRepository.getMessages().subscribe(value => currentMessages = value);
 
-    expect(expectedResult).toEqual(currentMessages[0]);
+    expect(spy).toHaveBeenCalledOnceWith({sender: mockUsername, content:messageNotEmpty});
   });
 
   it('should reset form after sending a valid message', () => {
@@ -129,14 +127,13 @@ describe('ChatContainerComponent', () => {
 
     let submitButton = fixture.nativeElement.querySelector('#send-message');
     submitButton.click();
-    let currentMessages!:ChatMessage[];
-    chatMessageRepository.getMessages().subscribe(value => currentMessages = value);
 
     expect(spy).toHaveBeenCalled();
   });
 
 
   it('should not add new message when submit invalid form', () => {
+    const spy = spyOn(chatMessageRepository, 'add');
 
     let emptyMessage="";
     let message = fixture.nativeElement.querySelector('#message');
@@ -148,11 +145,7 @@ describe('ChatContainerComponent', () => {
     let submitButton = fixture.nativeElement.querySelector('#send-message');
     submitButton.click();
 
-    let currentMessages!:ChatMessage[];
-    let expectedMessagesLength = 0;
-    chatMessageRepository.getMessages().subscribe(value => currentMessages = value);
-
-    expect(expectedMessagesLength).toEqual(currentMessages.length);
+    expect(spy).not.toHaveBeenCalled();
   });
 
   class MockAuthServiceWithAuthenticatedUser extends AuthService {
