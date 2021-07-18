@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '../services/auth.service';
 
@@ -9,6 +9,7 @@ import { IsConnectedGuard } from './is-connected.guard';
 describe('IsConnectedGuard', () => {
   let guard: IsConnectedGuard;
   let service: AuthService;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -21,6 +22,7 @@ describe('IsConnectedGuard', () => {
       ])
       ]
     });
+    router = TestBed.inject(Router);
 
     service = TestBed.inject(AuthService);
     guard = TestBed.inject(IsConnectedGuard);
@@ -44,8 +46,12 @@ describe('IsConnectedGuard', () => {
     expect(result).toBe(true);
   });
 
-  
-  
+  it('should redirect to /authentification/login when authentication not valid', ()=> {
+    let spyRouter = spyOn(router, 'navigate');
+
+    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: 'testUrl'});
+    expect(spyRouter).toHaveBeenCalledWith(['/authentification/login']);
+  });
 });
 
 @Component({
