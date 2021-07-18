@@ -3,11 +3,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/authentification/services/auth.service';
 import { ChatMessageRepository } from '../services/chat-message-repository';
 import { LocalChatMessageRepositoryService } from '../services/local-chat-message-repository.service';
-import {  FormGroup, ReactiveFormsModule  } from '@angular/forms';
+import {  ReactiveFormsModule  } from '@angular/forms';
 
 import { ChatContainerComponent } from './chat-container.component';
 import { ChatMessagesComponent } from '../chat-messages/chat-messages.component';
-import { ChatMessage } from '../shared/chat-message';
 
 describe('ChatContainerComponent', () => {
   let component: ChatContainerComponent;
