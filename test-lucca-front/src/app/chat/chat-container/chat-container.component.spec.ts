@@ -7,11 +7,15 @@ import {  ReactiveFormsModule  } from '@angular/forms';
 
 import { ChatContainerComponent } from './chat-container.component';
 import { ChatMessagesComponent } from '../chat-messages/chat-messages.component';
+import { ChatMessage } from '../shared/chat-message';
 
 describe('ChatContainerComponent', () => {
   let component: ChatContainerComponent;
   let fixture: ComponentFixture<ChatContainerComponent>;
   let mockAuthService:MockAuthServiceWithAuthenticatedUser;
+  let chatMessageRepository: ChatMessageRepository;
+  let mockUsername = "Maxime";
+
   beforeEach(() => {
     mockAuthService = new MockAuthServiceWithAuthenticatedUser();
 
@@ -29,6 +33,7 @@ describe('ChatContainerComponent', () => {
       ],
     }).compileComponents();
 
+    chatMessageRepository = TestBed.inject(ChatMessageRepository);
     fixture = TestBed.createComponent(ChatContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -93,6 +98,44 @@ describe('ChatContainerComponent', () => {
     expect(true).toEqual(isDisabled);
   });
 
+
+  it('should add new message when submit', () => {
+
+    let messageNotEmpty="hello world!";
+    let message = fixture.nativeElement.querySelector('#message');
+    message.value = messageNotEmpty;
+    message.dispatchEvent(new Event('input'));
+    component.sendMessageForm.get('message')?.markAsTouched();
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#send-message');
+    submitButton.click();
+    let currentMessages!:ChatMessage[];
+    let expectedResult = {sender:mockUsername, content: messageNotEmpty};
+    chatMessageRepository.getMessages().subscribe(value => currentMessages = value);
+
+    expect(expectedResult).toEqual(currentMessages[0]);
+  });
+
+  it('should not add new message when submit invalid form', () => {
+
+    let emptyMessage="";
+    let message = fixture.nativeElement.querySelector('#message');
+    message.value = emptyMessage;
+    message.dispatchEvent(new Event('input'));
+    component.sendMessageForm.get('message')?.markAsTouched();
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#send-message');
+    submitButton.click();
+    
+    let currentMessages!:ChatMessage[];
+    let expectedMessagesLength = 0;
+    chatMessageRepository.getMessages().subscribe(value => currentMessages = value);
+
+    expect(expectedMessagesLength).toEqual(currentMessages.length);
+  });
+
   class MockAuthServiceWithAuthenticatedUser extends AuthService {
     
     isAuthenticated() : Observable<boolean> {
@@ -100,7 +143,7 @@ describe('ChatContainerComponent', () => {
     }
 
     getUsername() : Observable<string> {
-      return new BehaviorSubject<string>("Maxime").asObservable();
+      return new BehaviorSubject<string>(mockUsername).asObservable();
     }
   }
 });
