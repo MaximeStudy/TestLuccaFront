@@ -4,10 +4,12 @@ import { AuthService } from '../services/auth.service';
 
 import { LoginComponent } from './login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,6 +23,7 @@ describe('LoginComponent', () => {
       ],
     })
     .compileComponents();
+    router = TestBed.inject(Router);
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -243,5 +246,26 @@ describe('LoginComponent', () => {
     let isDisabled = submitButton.disabled;
 
     expect(false).toEqual(isDisabled);
+  });
+
+  it('should redirect to chat after login', () => {
+    let spyRouter = spyOn(router, 'navigate');
+
+    let validValue = "hello";
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = validValue;
+    username.dispatchEvent(new Event('input'));
+    component.loginForm.get('username')?.markAsTouched();
+    
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = validValue;
+    password.dispatchEvent(new Event('input'));
+    component.loginForm.get('password')?.markAsTouched();
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#login-submit');
+    submitButton.click();
+
+    expect(spyRouter).toHaveBeenCalledWith(['/chat']);
   });
 });

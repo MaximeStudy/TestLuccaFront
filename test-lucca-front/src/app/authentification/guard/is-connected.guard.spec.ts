@@ -23,7 +23,6 @@ describe('IsConnectedGuard', () => {
       ]
     });
     router = TestBed.inject(Router);
-
     service = TestBed.inject(AuthService);
     guard = TestBed.inject(IsConnectedGuard);
   });

@@ -29,7 +29,6 @@ describe('LogoutComponent', () => {
     fixture = TestBed.createComponent(LogoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
   });
 
   it('should create', () => {
