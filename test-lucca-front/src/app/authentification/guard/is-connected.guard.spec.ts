@@ -17,9 +17,7 @@ describe('IsConnectedGuard', () => {
         AuthService,
       ],
       imports: [
-        RouterTestingModule.withRoutes([
-          { path: 'authentification/login', component: TestComponent}
-      ])
+        RouterTestingModule
       ]
     });
     router = TestBed.inject(Router);
@@ -32,12 +30,14 @@ describe('IsConnectedGuard', () => {
   });
 
   it('should return false for canActivate() when no user are logged in', ()=> {
+    spyOn(router, 'navigate');
     const result = guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: 'testUrl'});
     expect(result).toBe(false);
   });
 
 
   it('should return true for canActivate() when a user are logged in', ()=> {
+    spyOn(router, 'navigate');
     var user: string = "";
     var pwd: string= "";
     service.loginUser(user, pwd);
@@ -52,12 +52,3 @@ describe('IsConnectedGuard', () => {
     expect(spyRouter).toHaveBeenCalledWith(['/authentification/login']);
   });
 });
-
-@Component({
-  selector: 'app-banner',
-  template: '<h1>{{title}}</h1>',
-  styles: ['h1 { color: green; font-size: 350%}']
-})
-export class TestComponent {
-  title = 'Test component';
-}
