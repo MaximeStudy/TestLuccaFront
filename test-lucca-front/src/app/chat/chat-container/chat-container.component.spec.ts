@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/authentification/services/auth.service';
 import { ChatMessageRepository } from '../services/chat-message-repository';
 import { LocalChatMessageRepositoryService } from '../services/local-chat-message-repository.service';
-import {  ReactiveFormsModule  } from '@angular/forms';
+import {  FormGroup, ReactiveFormsModule  } from '@angular/forms';
 
 import { ChatContainerComponent } from './chat-container.component';
 import { ChatMessagesComponent } from '../chat-messages/chat-messages.component';
@@ -117,6 +117,25 @@ describe('ChatContainerComponent', () => {
     expect(expectedResult).toEqual(currentMessages[0]);
   });
 
+  it('should reset form after sending a valid message', () => {
+    const spy = spyOn(component.sendMessageForm, 'reset');
+
+    let messageNotEmpty="hello world!";
+    let message = fixture.nativeElement.querySelector('#message');
+    message.value = messageNotEmpty;
+    message.dispatchEvent(new Event('input'));
+    component.sendMessageForm.get('message')?.markAsTouched();
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#send-message');
+    submitButton.click();
+    let currentMessages!:ChatMessage[];
+    chatMessageRepository.getMessages().subscribe(value => currentMessages = value);
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+
   it('should not add new message when submit invalid form', () => {
 
     let emptyMessage="";
@@ -128,7 +147,7 @@ describe('ChatContainerComponent', () => {
 
     let submitButton = fixture.nativeElement.querySelector('#send-message');
     submitButton.click();
-    
+
     let currentMessages!:ChatMessage[];
     let expectedMessagesLength = 0;
     chatMessageRepository.getMessages().subscribe(value => currentMessages = value);
