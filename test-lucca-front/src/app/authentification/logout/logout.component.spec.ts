@@ -10,6 +10,8 @@ describe('LogoutComponent', () => {
   let fixture: ComponentFixture<LogoutComponent>;
   let authService: AuthService;
   let router: Router;
+  let spyRouterNavigate: jasmine.Spy;
+  let spyAuthLogout: jasmine.Spy;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -22,10 +24,11 @@ describe('LogoutComponent', () => {
       ]
     })
     .compileComponents();
-    authService = TestBed.inject(AuthService);
     router = TestBed.inject(Router);
-   
-    
+    authService = TestBed.inject(AuthService);
+    spyRouterNavigate = spyOn(router, 'navigate');
+    spyAuthLogout = spyOn(authService, 'logoutUser');
+
     fixture = TestBed.createComponent(LogoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -36,21 +39,10 @@ describe('LogoutComponent', () => {
   });
 
   it('should logout user', () => {
-
-    let spyLogout = spyOn(authService, 'logoutUser');
-    spyOn(router, 'navigate');
-
-    component.ngOnInit();
-
-    expect(spyLogout).toHaveBeenCalled();
+    expect(spyAuthLogout).toHaveBeenCalled();
   });
 
-  it('should redirect on login when logout', () => {
-    spyOn(authService, 'logoutUser');
-    let spyRouter = spyOn(router, 'navigate');
-
-    component.ngOnInit();
-  
-    expect(spyRouter).toHaveBeenCalledWith(['/authentification/login']);
+  it('should redirect on login when logout', () => {  
+    expect(spyRouterNavigate).toHaveBeenCalledWith(['/authentification/login']);
   });
 });
