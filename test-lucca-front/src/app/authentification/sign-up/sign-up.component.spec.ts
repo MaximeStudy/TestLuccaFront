@@ -90,7 +90,7 @@ describe('SignUpComponent', () => {
     expect(true).toEqual(validate);
   });
 
-  it('username should have maxLength to 10', () => {
+  it('should username have maxLength equals to 10', () => {
     let invalidValue = "abcdefghijk";
     let userName = fixture.nativeElement.querySelector('#username');
     userName.value = invalidValue;
@@ -101,7 +101,21 @@ describe('SignUpComponent', () => {
     expect(usernameControl?.hasError('maxlength')).toBeTruthy();
   });
 
-  it('username should be required', () => {
+  it('should username display "Username must not exceed 10 characters" error when input length greater than 10', () => {
+    let invalidValue = "abcdefghijk";
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = invalidValue;
+
+    username.dispatchEvent(new Event('input'));
+    var passwordControl = component.signupForm.get('username');
+    passwordControl?.markAsTouched();
+    fixture.detectChanges();
+
+    let em = fixture.nativeElement.querySelector('#username-form-group em');
+    expect(em.textContent).toEqual("Username must not exceed 10 characters");
+  });
+
+  it('should username be required', () => {
     let invalidValue = "";
     let userName = fixture.nativeElement.querySelector('#username');
     userName.value = invalidValue;
@@ -110,6 +124,20 @@ describe('SignUpComponent', () => {
     usernameControl?.markAsTouched();
 
     expect(usernameControl?.hasError('required')).toBeTruthy();
+  });
+
+  it('should username display "querySelector" error when input is empty', () => {
+    let invalidValue = "";
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = invalidValue;
+
+    username.dispatchEvent(new Event('input'));
+    var passwordControl = component.signupForm.get('username');
+    passwordControl?.markAsTouched();
+    fixture.detectChanges();
+
+    let em = fixture.nativeElement.querySelector('#username-form-group em');
+    expect(em.textContent).toEqual("Required");
   });
 
   it('password should have maxLength to 20', () => {
@@ -123,7 +151,21 @@ describe('SignUpComponent', () => {
     expect(passwordControl?.hasError('maxlength')).toBeTruthy();
   });
 
-  it('password have minlength to 6', () => {
+  it('should password display "Password must not exceed 20 characters" error when input length greater than 20', () => {
+    let invalidValue = "abcdefghijkbcdefghijkbcdefghijkbcdefghijk";
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = invalidValue;
+
+    password.dispatchEvent(new Event('input'));
+    var passwordControl = component.signupForm.get('password');
+    passwordControl?.markAsTouched();
+    fixture.detectChanges();
+
+    let em = fixture.nativeElement.querySelector('#password-form-group em');
+    expect(em.textContent).toEqual("Password must not exceed 20 characters");
+  });
+
+  it('should password have minlength when input length <6', () => {
     let invalidValue = "abc";
     let password = fixture.nativeElement.querySelector('#password');
     password.value = invalidValue;
@@ -134,7 +176,21 @@ describe('SignUpComponent', () => {
     expect(passwordControl?.hasError('minlength')).toBeTruthy();
   });
 
-  it('password is required', () => {
+  it('should password display "Password must be at least 6 characters" error when input length lower than 6', () => {
+    let invalidValue = "abc";
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = invalidValue;
+
+    password.dispatchEvent(new Event('input'));
+    var passwordControl = component.signupForm.get('password');
+    passwordControl?.markAsTouched();
+    fixture.detectChanges();
+
+    let em = fixture.nativeElement.querySelector('#password-form-group em');
+    expect(em.textContent).toEqual("Password must be at least 6 characters");
+  });
+
+  it('should password have no empty value', () => {
     let invalidValue = "";
     let password = fixture.nativeElement.querySelector('#password');
     password.value = invalidValue;
@@ -144,6 +200,21 @@ describe('SignUpComponent', () => {
 
     expect(passwordControl?.hasError('required')).toBeTruthy();
   });
+
+  it('should password display "Required" error when input input is empty', () => {
+    let invalidValue = "";
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = invalidValue;
+
+    password.dispatchEvent(new Event('input'));
+    var passwordControl = component.signupForm.get('password');
+    passwordControl?.markAsTouched();
+    fixture.detectChanges();
+
+    let em = fixture.nativeElement.querySelector('#password-form-group em');
+    expect(em.textContent).toEqual("Required");
+  });
+  
 
   it('confirm password is required', () => {
     let invalidValue = "";
@@ -165,5 +236,34 @@ describe('SignUpComponent', () => {
     confirmPasswordControl?.markAsTouched();
 
     expect(component.signupForm?.hasError('matching')).toBeTruthy();
+  });
+
+  it('should confirm password display "Required" error when input does not match with password', () => {
+    let invalidValue = "";
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = invalidValue;
+
+    confirmPassword.dispatchEvent(new Event('input'));
+    var confirmPasswordControl = component.signupForm.get('confirmPassword');
+    confirmPasswordControl?.markAsTouched();
+    fixture.detectChanges();
+
+    let em = fixture.nativeElement.querySelector('#confirm-password-form-group em');
+    expect(em.textContent).toEqual("Required");
+  });
+  
+  it('should confirm password display "Confirm password does not match" error when input does not match with password', () => {
+    let invalidValue = "confirm pwd";
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = invalidValue;
+
+    confirmPassword.dispatchEvent(new Event('input'));
+    var confirmPasswordControl = component.signupForm.get('confirmPassword');
+    confirmPasswordControl?.markAsTouched();
+    fixture.detectChanges();
+
+
+    let em = fixture.nativeElement.querySelector('#confirm-password-form-group em');
+    expect(em.textContent).toEqual("Confirm password does not match");
   });
 });

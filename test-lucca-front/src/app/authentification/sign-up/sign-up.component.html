@@ -6,21 +6,21 @@
                 <form [formGroup]="signupForm" (ngSubmit)="signUp(signupForm.value)" autocomplete="off" novalidate> 
                     <h4>Create a new mock account. (the account is not saved for the moment!)</h4>
                     <hr>
-                    <div class="form-group" [ngClass]="{'error': !validateUsername()}">
+                    <div id="username-form-group" class="form-group" [ngClass]="{'error': !validateUsername()}">
                         <label>Username</label>
                         <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.required">Required</em>
-                        <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.maxlength">Password must not exceed 10 characters</em>
+                        <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.maxlength">Username must not exceed 10 characters</em>
                         <input formControlName="username" id="username" name="username" class="form-control"  type="text" placeholder="Username">
                         
                     </div>
-                    <div class="form-group" [ngClass]="{'error': !validatePassword()}">
+                    <div id="password-form-group" class="form-group" [ngClass]="{'error': !validatePassword()}">
                         <label>Password</label>
                         <em *ngIf="!validatePassword() && signupForm.controls.password.errors?.required">Required</em>
                         <em *ngIf="!validatePassword() && signupForm.controls.password.errors?.minlength">Password must be at least 6 characters</em>
                         <em *ngIf="!validatePassword() && signupForm.controls.password.errors?.maxlength">Password must not exceed 20 characters</em>
                         <input formControlName="password" id="password" name="password" class="form-control" autocomplete="new-password" type="password" placeholder="Password">
                     </div>
-                    <div class="form-group" [ngClass]="{'error': !validateConfirmPassword()}">
+                    <div id="confirm-password-form-group" class="form-group" [ngClass]="{'error': !validateConfirmPassword()}">
                         <label>Confirm password</label>
                         <em *ngIf="!validateConfirmPassword() && signupForm.controls.confirmPassword.errors?.required">Required</em>
                         <em *ngIf="!validateConfirmPassword() && signupForm.controls.confirmPassword.errors?.matching">Confirm password does not match</em>
