@@ -275,6 +275,42 @@ describe('SignUpComponent', () => {
   });
   
 
+  it('should add error class when confirm password does not match with password', () => {
+    let invalidValue = "confirm pwd";
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = invalidValue;
+
+    confirmPassword.dispatchEvent(new Event('input'));
+    var confirmPasswordControl = component.signupForm.get('confirmPassword');
+    confirmPasswordControl?.markAsTouched();
+    fixture.detectChanges();
+
+    let confirmPasswordFormGroup = fixture.nativeElement.querySelector('#confirm-password-form-group');
+    let hasError = confirmPasswordFormGroup.classList.contains("error");
+
+    expect(true).toEqual(hasError);
+  });
+
+  it('should not add error class when confirm password is valid', () => {
+    let validPassword = "confirm pwd";
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = validPassword;
+    password.dispatchEvent(new Event('input'));
+    component.signupForm.get('password')?.markAsTouched();
+
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = validPassword;
+    confirmPassword.dispatchEvent(new Event('input'));
+    component.signupForm.get('confirmPassword')?.markAsTouched();
+    fixture.detectChanges();
+
+    let confirmPasswordFormGroup = fixture.nativeElement.querySelector('#confirm-password-form-group');
+    let hasError = confirmPasswordFormGroup.classList.contains("error");
+
+    expect(false).toEqual(hasError);
+  });
+
+
   it('should enable submit button if form is valid', () => {
     let validUsername = "hello";
     let validPassword = "password123";
