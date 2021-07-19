@@ -129,9 +129,6 @@ describe('ChatMessagesComponent', () => {
 
     var currentHeight = messagesDiv.scrollTop;
     var isEndOfElement = messagesDiv.scrollHeight - Math.ceil(messagesDiv.scrollTop) === messagesDiv.clientHeight; // I don't know why we loss precision
-    console.log(messagesDiv.scrollHeight);
-    console.log(messagesDiv.scrollTop);
-    console.log(messagesDiv.clientHeight);
 
     expect(currentHeight).toBeGreaterThan(lastHeight);
     expect(true).toEqual(isEndOfElement);

@@ -9,7 +9,6 @@
                     <div class="form-group" [ngClass]="{'error': !validateUsername()}">
                         <label>Username</label>
                         <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.required">Required</em>
-                        <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.minlength">Password must be at least 1 character</em>
                         <em *ngIf="!validateUsername() && signupForm.controls.username.errors?.maxlength">Password must not exceed 10 characters</em>
                         <input formControlName="username" id="username" name="username" class="form-control"  type="text" placeholder="Username">
                         
