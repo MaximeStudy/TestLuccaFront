@@ -133,6 +133,36 @@ describe('SignUpComponent', () => {
     expect(usernameControl?.hasError('required')).toBeTruthy();
   });
 
+  it('should add error class when username not valid', () => {
+    let invalidUsername = "";
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = invalidUsername;
+
+    username.dispatchEvent(new Event('input'));
+    var usernameControl = component.signupForm.get('username');
+    usernameControl?.markAsTouched();
+    fixture.detectChanges();
+
+    let usernameFormGroup = fixture.nativeElement.querySelector('#username-form-group');
+    let hasError = usernameFormGroup.classList.contains("error");
+
+    expect(true).toEqual(hasError);
+  });
+
+  it('should not add error class when username is valid', () => {
+    let validUsername = "Hello";
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = validUsername;
+    username.dispatchEvent(new Event('input'));
+    component.signupForm.get('username')?.markAsTouched();
+    fixture.detectChanges();
+
+    let passwordFormGroup = fixture.nativeElement.querySelector('#username-form-group');
+    let hasError = passwordFormGroup.classList.contains("error");
+
+    expect(false).toEqual(hasError);
+  });
+
   it('should username display "querySelector" error when input is empty', () => {
     let invalidValue = "";
     let username = fixture.nativeElement.querySelector('#username');
@@ -208,7 +238,7 @@ describe('SignUpComponent', () => {
     expect(passwordControl?.hasError('required')).toBeTruthy();
   });
 
-  it('should password display "Required" error when input input is empty', () => {
+  it('should display "Required" error when password input is empty', () => {
     let invalidValue = "";
     let password = fixture.nativeElement.querySelector('#password');
     password.value = invalidValue;
@@ -222,6 +252,36 @@ describe('SignUpComponent', () => {
     expect(em.textContent).toEqual("Required");
   });
   
+
+  it('should add error class when password not valid', () => {
+    let invalidValue = "";
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = invalidValue;
+
+    password.dispatchEvent(new Event('input'));
+    var passwordControl = component.signupForm.get('password');
+    passwordControl?.markAsTouched();
+    fixture.detectChanges();
+
+    let passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
+    let hasError = passwordFormGroup.classList.contains("error");
+
+    expect(true).toEqual(hasError);
+  });
+
+  it('should not add error class when password is valid', () => {
+    let validPassword = "pwdpwdpwd";
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = validPassword;
+    password.dispatchEvent(new Event('input'));
+    component.signupForm.get('password')?.markAsTouched();
+    fixture.detectChanges();
+
+    let passwordFormGroup = fixture.nativeElement.querySelector('#password-form-group');
+    let hasError = passwordFormGroup.classList.contains("error");
+
+    expect(false).toEqual(hasError);
+  });
 
   it('confirm password is required', () => {
     let invalidValue = "";
