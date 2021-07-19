@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '../services/auth.service';
 
@@ -8,9 +9,15 @@ import { SignUpComponent } from './sign-up.component';
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
   let fixture: ComponentFixture<SignUpComponent>;
+  let router: Router;
+  let auth: AuthService;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    
+  });
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [ SignUpComponent ],
       imports: [
         RouterTestingModule,
@@ -21,9 +28,9 @@ describe('SignUpComponent', () => {
       ],
     })
     .compileComponents();
-  });
+    router = TestBed.inject(Router);
+    auth =  TestBed.inject(AuthService);
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(SignUpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -320,5 +327,127 @@ describe('SignUpComponent', () => {
     let isDisabled = submitButton.disabled;
 
     expect(true).toEqual(isDisabled);
+  });
+
+  it('should redirect to "/chat" when submitting valid form', () => {
+    let spyRouter = spyOn(router, 'navigate');
+
+    let validUsername = "hello";
+    
+    let validPassword = "password123";
+
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = validUsername;
+    username.dispatchEvent(new Event('input'));
+    component.signupForm.get('username')?.markAsTouched();
+
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = validPassword;
+    password.dispatchEvent(new Event('input'));
+    component.signupForm.get('password')?.markAsTouched();
+
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = validPassword;
+    confirmPassword.dispatchEvent(new Event('input'));
+    component.signupForm.get('confirmPassword')?.markAsTouched();
+
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#signup-submit');
+    submitButton.click();
+
+    expect(spyRouter).toHaveBeenCalledWith(['/chat']);
+  });
+
+  it('should call signUpUser when submitting valid form', () => {
+    spyOn(router, 'navigate');
+    let spyAuth = spyOn(auth, 'signUpUser');
+
+    let validUsername = "hello";
+    
+    let validPassword = "password123";
+
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = validUsername;
+    username.dispatchEvent(new Event('input'));
+    component.signupForm.get('username')?.markAsTouched();
+
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = validPassword;
+    password.dispatchEvent(new Event('input'));
+    component.signupForm.get('password')?.markAsTouched();
+
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = validPassword;
+    confirmPassword.dispatchEvent(new Event('input'));
+    component.signupForm.get('confirmPassword')?.markAsTouched();
+
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#signup-submit');
+    submitButton.click();
+
+    expect(spyAuth).toHaveBeenCalledWith(validUsername, validPassword, validPassword);
+  });
+
+  it('should not redirect to "/chat" when sumbitting invalid form', () => {
+    let spyRouter = spyOn(router, 'navigate');
+
+    let invalidUsername = "";
+    
+    let validPassword = "password123";
+
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = invalidUsername;
+    username.dispatchEvent(new Event('input'));
+    component.signupForm.get('username')?.markAsTouched();
+
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = validPassword;
+    password.dispatchEvent(new Event('input'));
+    component.signupForm.get('password')?.markAsTouched();
+
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = validPassword;
+    confirmPassword.dispatchEvent(new Event('input'));
+    component.signupForm.get('confirmPassword')?.markAsTouched();
+
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#signup-submit');
+    submitButton.click();
+
+    expect(spyRouter).not.toHaveBeenCalledWith(['/chat']);
+  });
+
+  it('should call signUpUser when submitting invalid form', () => {
+    spyOn(router, 'navigate');
+    let spyAuth = spyOn(auth, 'signUpUser');
+
+    let invalidUsername = "";
+    
+    let validPassword = "password123";
+
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = invalidUsername;
+    username.dispatchEvent(new Event('input'));
+    component.signupForm.get('username')?.markAsTouched();
+
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = validPassword;
+    password.dispatchEvent(new Event('input'));
+    component.signupForm.get('password')?.markAsTouched();
+
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = validPassword;
+    confirmPassword.dispatchEvent(new Event('input'));
+    component.signupForm.get('confirmPassword')?.markAsTouched();
+
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#signup-submit');
+    submitButton.click();
+
+    expect(spyAuth).not.toHaveBeenCalledWith(invalidUsername, validPassword, validPassword);
   });
 });

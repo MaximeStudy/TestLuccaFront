@@ -36,10 +36,9 @@ export class SignUpComponent implements OnInit {
       this.authService.signUpUser(formValues.username, formValues.password, formValues.confirmPassword);
       this.router.navigate(['/chat']);
     }
-    
   }
 
-  validatePassword()  : boolean {
+  validatePassword() : boolean {
     return this.password.valid || (this.password.untouched && !this.mouseoverSignup);
   }
 
