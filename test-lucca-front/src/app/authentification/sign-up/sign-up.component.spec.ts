@@ -60,37 +60,28 @@ describe('SignUpComponent', () => {
 
   it('should databind with username form control', () => {
     let expectedValue = "hello";
-    let userName = fixture.nativeElement.querySelector('#username');
-    userName.value = expectedValue;
-    userName.dispatchEvent(new Event('input'));
+    setUsername(expectedValue);
 
     expect(expectedValue).toEqual(component.signupForm.get('username')?.value);
   });
 
   it('should databind with password form control', () => {
     let expectedValue = "hello password";
-    let password = fixture.nativeElement.querySelector('#password');
-    password.value = expectedValue;
-    password.dispatchEvent(new Event('input'));
+    setPassword(expectedValue);
 
     expect(expectedValue).toEqual(component.signupForm.get('password')?.value);
   });
 
   it('should databind with confirmPassword form control', () => {
     let expectedValue = "hello confirmPassword";
-    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
-    confirmPassword.value = expectedValue;
-    confirmPassword.dispatchEvent(new Event('input'));
+    setConfirmPassword(expectedValue);
 
     expect(expectedValue).toEqual(component.signupForm.get('confirmPassword')?.value);
   });
 
   it('should validate with valid username', () => {
     let validValue = "hello";
-    let userName = fixture.nativeElement.querySelector('#username');
-    userName.value = validValue;
-    userName.dispatchEvent(new Event('input'));
-    component.signupForm.get('username')?.markAsTouched();
+    setUsername(validValue);
 
     let validate = component.validateUsername();
 
@@ -99,23 +90,17 @@ describe('SignUpComponent', () => {
 
   it('should username have maxLength equals to 10', () => {
     let invalidValue = "abcdefghijk";
-    let userName = fixture.nativeElement.querySelector('#username');
-    userName.value = invalidValue;
-    userName.dispatchEvent(new Event('input'));
+    setUsername(invalidValue);
+
     var usernameControl = component.signupForm.get('username');
-    usernameControl?.markAsTouched();
 
     expect(usernameControl?.hasError('maxlength')).toBeTruthy();
   });
 
   it('should username display "Username must not exceed 10 characters" error when input length greater than 10', () => {
     let invalidValue = "abcdefghijk";
-    let username = fixture.nativeElement.querySelector('#username');
-    username.value = invalidValue;
+    setUsername(invalidValue);
 
-    username.dispatchEvent(new Event('input'));
-    var passwordControl = component.signupForm.get('username');
-    passwordControl?.markAsTouched();
     fixture.detectChanges();
 
     let em = fixture.nativeElement.querySelector('#username-form-group em');
@@ -124,23 +109,17 @@ describe('SignUpComponent', () => {
 
   it('should username be required', () => {
     let invalidValue = "";
-    let userName = fixture.nativeElement.querySelector('#username');
-    userName.value = invalidValue;
-    userName.dispatchEvent(new Event('input'));
+    setUsername(invalidValue);
+
     var usernameControl = component.signupForm.get('username');
-    usernameControl?.markAsTouched();
 
     expect(usernameControl?.hasError('required')).toBeTruthy();
   });
 
   it('should add error class when username not valid', () => {
     let invalidUsername = "";
-    let username = fixture.nativeElement.querySelector('#username');
-    username.value = invalidUsername;
+    setUsername(invalidUsername);
 
-    username.dispatchEvent(new Event('input'));
-    var usernameControl = component.signupForm.get('username');
-    usernameControl?.markAsTouched();
     fixture.detectChanges();
 
     let usernameFormGroup = fixture.nativeElement.querySelector('#username-form-group');
@@ -151,10 +130,8 @@ describe('SignUpComponent', () => {
 
   it('should not add error class when username is valid', () => {
     let validUsername = "Hello";
-    let username = fixture.nativeElement.querySelector('#username');
-    username.value = validUsername;
-    username.dispatchEvent(new Event('input'));
-    component.signupForm.get('username')?.markAsTouched();
+    setUsername(validUsername);
+
     fixture.detectChanges();
 
     let passwordFormGroup = fixture.nativeElement.querySelector('#username-form-group');
@@ -165,12 +142,8 @@ describe('SignUpComponent', () => {
 
   it('should username display "querySelector" error when input is empty', () => {
     let invalidValue = "";
-    let username = fixture.nativeElement.querySelector('#username');
-    username.value = invalidValue;
+    setUsername(invalidValue);
 
-    username.dispatchEvent(new Event('input'));
-    var passwordControl = component.signupForm.get('username');
-    passwordControl?.markAsTouched();
     fixture.detectChanges();
 
     let em = fixture.nativeElement.querySelector('#username-form-group em');
@@ -546,4 +519,25 @@ describe('SignUpComponent', () => {
 
     expect(spyAuth).not.toHaveBeenCalledWith(invalidUsername, validPassword, validPassword);
   });
+
+  function setUsername(value:string) {
+    let userName = fixture.nativeElement.querySelector('#username');
+    userName.value = value;
+    userName.dispatchEvent(new Event('input'));
+    component.signupForm.get('username')?.markAsTouched();
+  }
+
+  function setPassword(value:string) {
+    let userName = fixture.nativeElement.querySelector('#password');
+    userName.value = value;
+    userName.dispatchEvent(new Event('input'));
+    component.signupForm.get('password')?.markAsTouched();
+  }
+
+  function setConfirmPassword(value:string) {
+    let userName = fixture.nativeElement.querySelector('#confirm-password');
+    userName.value = value;
+    userName.dispatchEvent(new Event('input'));
+    component.signupForm.get('confirmPassword')?.markAsTouched();
+  }
 });
