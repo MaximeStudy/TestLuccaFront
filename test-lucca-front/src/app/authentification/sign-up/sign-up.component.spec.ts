@@ -144,4 +144,26 @@ describe('SignUpComponent', () => {
 
     expect(passwordControl?.hasError('required')).toBeTruthy();
   });
+
+  it('confirm password is required', () => {
+    let invalidValue = "";
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = invalidValue;
+    confirmPassword.dispatchEvent(new Event('input'));
+    var confirmPasswordControl = component.signupForm.get('confirmPassword');
+    confirmPasswordControl?.markAsTouched();
+
+    expect(confirmPasswordControl?.hasError('required')).toBeTruthy();
+  });
+
+  it('confirm password should match password', () => {
+    let invalidValue = "confirm pwd";
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = invalidValue;
+    confirmPassword.dispatchEvent(new Event('input'));
+    var confirmPasswordControl = component.signupForm.get('confirmPassword');
+    confirmPasswordControl?.markAsTouched();
+
+    expect(component.signupForm?.hasError('matching')).toBeTruthy();
+  });
 });
