@@ -266,4 +266,59 @@ describe('SignUpComponent', () => {
     let em = fixture.nativeElement.querySelector('#confirm-password-form-group em');
     expect(em.textContent).toEqual("Confirm password does not match");
   });
+  
+
+  it('should enable submit button if form is valid', () => {
+    let validUsername = "hello";
+    let validPassword = "password123";
+
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = validUsername;
+    username.dispatchEvent(new Event('input'));
+    component.signupForm.get('username')?.markAsTouched();
+
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = validPassword;
+    password.dispatchEvent(new Event('input'));
+    component.signupForm.get('password')?.markAsTouched();
+
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = validPassword;
+    confirmPassword.dispatchEvent(new Event('input'));
+    component.signupForm.get('confirmPassword')?.markAsTouched();
+
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#signup-submit');
+    let isDisabled = submitButton.disabled;
+
+    expect(false).toEqual(isDisabled);
+  });
+
+  it('should disable submit button if form is not valid', () => {
+    let invalidUsername = "";
+    let validPassword = "password123";
+
+    let username = fixture.nativeElement.querySelector('#username');
+    username.value = invalidUsername;
+    username.dispatchEvent(new Event('input'));
+    component.signupForm.get('username')?.markAsTouched();
+
+    let password = fixture.nativeElement.querySelector('#password');
+    password.value = validPassword;
+    password.dispatchEvent(new Event('input'));
+    component.signupForm.get('password')?.markAsTouched();
+
+    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
+    confirmPassword.value = validPassword;
+    confirmPassword.dispatchEvent(new Event('input'));
+    component.signupForm.get('confirmPassword')?.markAsTouched();
+
+    fixture.detectChanges();
+
+    let submitButton = fixture.nativeElement.querySelector('#signup-submit');
+    let isDisabled = submitButton.disabled;
+
+    expect(true).toEqual(isDisabled);
+  });
 });
