@@ -299,20 +299,11 @@ describe('SignUpComponent', () => {
     let validUsername = "hello";
     let validPassword = "password123";
 
-    let username = fixture.nativeElement.querySelector('#username');
-    username.value = validUsername;
-    username.dispatchEvent(new Event('input'));
-    component.signupForm.get('username')?.markAsTouched();
+    setUsername(validUsername);
 
-    let password = fixture.nativeElement.querySelector('#password');
-    password.value = validPassword;
-    password.dispatchEvent(new Event('input'));
-    component.signupForm.get('password')?.markAsTouched();
+    setPassword(validPassword);
 
-    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
-    confirmPassword.value = validPassword;
-    confirmPassword.dispatchEvent(new Event('input'));
-    component.signupForm.get('confirmPassword')?.markAsTouched();
+    setConfirmPassword(validPassword);
 
     fixture.detectChanges();
 
@@ -326,20 +317,11 @@ describe('SignUpComponent', () => {
     let invalidUsername = "";
     let validPassword = "password123";
 
-    let username = fixture.nativeElement.querySelector('#username');
-    username.value = invalidUsername;
-    username.dispatchEvent(new Event('input'));
-    component.signupForm.get('username')?.markAsTouched();
+    setUsername(invalidUsername);
 
-    let password = fixture.nativeElement.querySelector('#password');
-    password.value = validPassword;
-    password.dispatchEvent(new Event('input'));
-    component.signupForm.get('password')?.markAsTouched();
+    setPassword(validPassword);
 
-    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
-    confirmPassword.value = validPassword;
-    confirmPassword.dispatchEvent(new Event('input'));
-    component.signupForm.get('confirmPassword')?.markAsTouched();
+    setConfirmPassword(validPassword);
 
     fixture.detectChanges();
 
@@ -356,20 +338,11 @@ describe('SignUpComponent', () => {
     
     let validPassword = "password123";
 
-    let username = fixture.nativeElement.querySelector('#username');
-    username.value = validUsername;
-    username.dispatchEvent(new Event('input'));
-    component.signupForm.get('username')?.markAsTouched();
+    setUsername(validUsername);
 
-    let password = fixture.nativeElement.querySelector('#password');
-    password.value = validPassword;
-    password.dispatchEvent(new Event('input'));
-    component.signupForm.get('password')?.markAsTouched();
+    setPassword(validPassword);
 
-    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
-    confirmPassword.value = validPassword;
-    confirmPassword.dispatchEvent(new Event('input'));
-    component.signupForm.get('confirmPassword')?.markAsTouched();
+    setConfirmPassword(validPassword);
 
     fixture.detectChanges();
 
@@ -387,20 +360,11 @@ describe('SignUpComponent', () => {
     
     let validPassword = "password123";
 
-    let username = fixture.nativeElement.querySelector('#username');
-    username.value = validUsername;
-    username.dispatchEvent(new Event('input'));
-    component.signupForm.get('username')?.markAsTouched();
+    setUsername(validUsername);
 
-    let password = fixture.nativeElement.querySelector('#password');
-    password.value = validPassword;
-    password.dispatchEvent(new Event('input'));
-    component.signupForm.get('password')?.markAsTouched();
+    setPassword(validPassword);
 
-    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
-    confirmPassword.value = validPassword;
-    confirmPassword.dispatchEvent(new Event('input'));
-    component.signupForm.get('confirmPassword')?.markAsTouched();
+    setConfirmPassword(validPassword);
 
     fixture.detectChanges();
 
@@ -417,20 +381,11 @@ describe('SignUpComponent', () => {
     
     let validPassword = "password123";
 
-    let username = fixture.nativeElement.querySelector('#username');
-    username.value = invalidUsername;
-    username.dispatchEvent(new Event('input'));
-    component.signupForm.get('username')?.markAsTouched();
+    setUsername(invalidUsername);
 
-    let password = fixture.nativeElement.querySelector('#password');
-    password.value = validPassword;
-    password.dispatchEvent(new Event('input'));
-    component.signupForm.get('password')?.markAsTouched();
+    setPassword(validPassword);
 
-    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
-    confirmPassword.value = validPassword;
-    confirmPassword.dispatchEvent(new Event('input'));
-    component.signupForm.get('confirmPassword')?.markAsTouched();
+    setConfirmPassword(validPassword);
 
     fixture.detectChanges();
 
@@ -448,20 +403,11 @@ describe('SignUpComponent', () => {
     
     let validPassword = "password123";
 
-    let username = fixture.nativeElement.querySelector('#username');
-    username.value = invalidUsername;
-    username.dispatchEvent(new Event('input'));
-    component.signupForm.get('username')?.markAsTouched();
+    setUsername(invalidUsername);
 
-    let password = fixture.nativeElement.querySelector('#password');
-    password.value = validPassword;
-    password.dispatchEvent(new Event('input'));
-    component.signupForm.get('password')?.markAsTouched();
+    setPassword(validPassword);
 
-    let confirmPassword = fixture.nativeElement.querySelector('#confirm-password');
-    confirmPassword.value = validPassword;
-    confirmPassword.dispatchEvent(new Event('input'));
-    component.signupForm.get('confirmPassword')?.markAsTouched();
+    setConfirmPassword(validPassword);
 
     fixture.detectChanges();
 
