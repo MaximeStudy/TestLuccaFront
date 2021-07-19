@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChatMessageRepository } from '../services/chat-message-repository';
 import { LocalChatMessageRepositoryService } from '../services/local-chat-message-repository.service';
-
 import { ChatMessagesComponent } from './chat-messages.component';
 
 describe('ChatMessagesComponent', () => {

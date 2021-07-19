@@ -12,10 +12,6 @@ describe('SignUpComponent', () => {
   let router: Router;
   let auth: AuthService;
 
-  beforeEach(async () => {
-    
-  });
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ SignUpComponent ],

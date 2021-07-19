@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
       this.authService.loginUser(formValues.username, formValues.password);
       this.router.navigate(['/chat']);
     }
-   
   }
 
   validatePassword()  : boolean {
